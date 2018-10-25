@@ -24,9 +24,8 @@ public class Tennis {
                 "None", "PHI", height, weight, "R", "Coke", 1, "Steve");
         Referee ref = new Referee("Doe", "M", "Doe", "Javi", "Javi", "01/11/98",
                 "", "None", "PHI", height, weight);
-        Game ex = new Game(a, b, ref);
-        Player x = ex.playGame();
-        System.out.println(x);
+        Set ex = new Set(a, b, ref);
+        ex.playSet();
     }
     
 }

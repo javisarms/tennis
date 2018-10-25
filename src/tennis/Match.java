@@ -15,11 +15,4 @@ public class Match {
     Referee ref;
     Set s;
     
-    public Match(Player x, Player y, Referee r)
-    {
-        p1 = x;
-        p2 = y;
-        ref = r;
-        s = new Set();
-    }
 }

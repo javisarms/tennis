@@ -32,12 +32,10 @@ public class Game {
         exchange();
         if (p1Score > 3) {
             winner = ser;
-            getResult(winner);
         }
         
         else if (p2Score > 3) {
             winner = rec;
-            getResult(winner);
         }
         
         return winner;
@@ -46,7 +44,7 @@ public class Game {
     private void exchange() {
         if (p1Score <= 3 && p2Score <= 3) {
             Player x = ex.service(0); //returns the winner of the exchange
-
+            ex.getResult(x);
             //If server won
             if (x == ser) {
                 p1Score++;
@@ -58,11 +56,6 @@ public class Game {
                 playGame();
             }
 
-        }
-        
-        else
-        {
-            
         }
     }
     
@@ -76,5 +69,12 @@ public class Game {
         System.out.println(result);
     }
     
+    public void setServer(Player p1) {
+        ser = p1;
+    }
+
+    public void setReceiver(Player p1) {
+        rec = p1;
+    }
     
 }

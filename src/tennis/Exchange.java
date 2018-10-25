@@ -30,13 +30,11 @@ public class Exchange {
         //50% chance of winning
         if (chance <= 0.5f) {
             winner = ser;
-            getResult(winner);
         }
         
         //Service fault
         else {
             winner =  rec;
-            getResult(winner);
         }
         
         return winner;
