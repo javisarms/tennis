@@ -22,31 +22,40 @@ public class Exchange {
         ref = r;
     }
     
-    public Player service(int f) {
+    public Referee service(int f) {
         int faultCount = f;
         float chance = r.nextFloat(); //generates a random float
-        Player winner;
         
-        //50% chance of winning
+        //Chance of winning
         if (chance <= 0.5f) {
-            winner = ser;
+            ref.setWinner(ser);
         }
         
         //Service fault
         else {
-            winner =  rec;
+            ref.setWinner(rec);
+//            if(faultCount == 0) {
+//                faultCount ++;
+//                winner = null;
+//                service(faultCount);
+//            }
+//            
+//            else {
+//                winner = rec;
+//            }
         }
         
-        return winner;
+        return ref;
     }
-        
-    public void getResult(Player winner) {
+    
+    //Displays the outcome of the exchange
+    public String getResult(Player winner) {
         String result;
         
         result = winner.nickName + " " + winner.blastName + 
                 " has won the exchange";
         
         
-        System.out.println(result);
+        return result;
     }
 }

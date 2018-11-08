@@ -17,56 +17,118 @@ public class Game {
     int p1Score = 0; //increments of 1
     int p2Score = 0;
     Exchange ex;
-    //Random r = new Random();
+    String summary = "";
 
     public Game(Player x, Player y, Referee r) {
         ser = x;
         rec = y;
         ref = r;
-        ex = new Exchange(ser, rec, ref);
     }
     
-    public Player playGame() {
+    public Referee playGame() {
         
-        Player winner = null;
         exchange();
+        
         if (p1Score > 3) {
-            winner = ser;
+            ref.setWinner(ser);
         }
         
         else if (p2Score > 3) {
-            winner = rec;
+            ref.setWinner(rec);
         }
         
-        return winner;
+        return ref;
     }
     
     private void exchange() {
         if (p1Score <= 3 && p2Score <= 3) {
-            Player x = ex.service(0); //returns the winner of the exchange
-            ex.getResult(x);
+            ex = new Exchange(ser, rec, ref);
+            Player x = ex.service(0).getWinner(); 
+            //returns the winner of the exchange
+            
             //If server won
             if (x == ser) {
                 p1Score++;
-                //System.out.println("p1:" + p1Score);
+                summary += ex.getResult(x) + " | [" + ser.nickName + " " +
+                        ser.blastName + ": " + getP1TScore() + "]  [" + 
+                        rec.nickName + " " + rec.blastName + ": " + 
+                        getP2TScore() + "] \n";
+                ref.setSummary(summary);
                 playGame();
-            } else if (x == rec) {
+            } 
+            //If receiver won
+            else if (x == rec) {
                 p2Score++;
-                //System.out.println("p2:" + p2Score);
+                summary += ex.getResult(x) + " | [" + ser.nickName + " " +
+                        ser.blastName + ": " + getP1TScore() + "]  [" + 
+                        rec.nickName + " " + rec.blastName + ": " + 
+                        getP2TScore() + "] \n";
+                ref.setSummary(summary);
                 playGame();
             }
-
         }
     }
     
-    
-    public void getResult(Player winner) {
-        String result;
+    //This gets the equivalent of p1score as a tennis score (0,15,30, etc.)
+    private String getP1TScore() {
+        String p1TScore = null;
         
-        result = winner.nickName + " " + winner.blastName + 
-        " has won the game";
+        switch (p1Score) {
+            case 0:
+                p1TScore = "0";
+                break;
+            case 1:
+                p1TScore = "15";
+                break;
+            case 2:
+                p1TScore = "30";
+                break;
+            case 3:
+                p1TScore = "40";
+                break;
+            case 4:
+                p1TScore = "WINNER";
+                break;
+            default:
+                break;
+        }
+            
+        
+        return p1TScore;
+    }
+    
+    //This gets the equivalent of p2score as a tennis score (0,15,30, etc.)
+    private String getP2TScore() {
+        String p2TScore = null;
+        
+        switch (p2Score) {
+            case 0:
+                p2TScore = "0";
+                break;
+            case 1:
+                p2TScore = "15";
+                break;
+            case 2:
+                p2TScore = "30";
+                break;
+            case 3:
+                p2TScore = "40";
+                break;
+            case 4:
+                p2TScore = "WINNER";
+                break;
 
-        System.out.println(result);
+            default:
+                break;
+        }
+        
+        return p2TScore;
+    }
+    
+    public String getResult(Player winner) {
+         summary += winner.nickName + " " + winner.blastName + 
+            " has won the game \n";   
+        return summary;
     }
     
     public void setServer(Player p1) {

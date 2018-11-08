@@ -16,6 +16,9 @@ public class Tennis {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        //TODO
+        //Generate random players, referees, and spectators
         double height = 168.8;
         double weight = 60.2;
         Player a = new Player("Doe", "M", "Doe", "John", "John", "01/11/98", "",
@@ -24,8 +27,13 @@ public class Tennis {
                 "None", "PHI", height, weight, "R", "Coke", 1, "Steve");
         Referee ref = new Referee("Doe", "M", "Doe", "Javi", "Javi", "01/11/98",
                 "", "None", "PHI", height, weight);
-        Set ex = new Set(a, b, ref);
-        ex.playSet();
+//        Match ex = new Match(a, b, ref);
+//        Player x = ex.playMatch();
+//        System.out.println(x.nickName + " has won the match.");
+        
+        Game ex = new Game(a, b, ref);
+        Referee x = ex.playGame();
+        System.out.println(x.getSummary());
     }
     
 }
