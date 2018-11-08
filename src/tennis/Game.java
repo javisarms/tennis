@@ -127,7 +127,7 @@ public class Game {
     
     public String getResult(Player winner) {
          summary += winner.nickName + " " + winner.blastName + 
-            " has won the game \n";   
+            " has won the game";   
         return summary;
     }
     

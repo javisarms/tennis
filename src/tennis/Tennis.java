@@ -31,8 +31,8 @@ public class Tennis {
 //        Player x = ex.playMatch();
 //        System.out.println(x.nickName + " has won the match.");
         
-        Game ex = new Game(a, b, ref);
-        Referee x = ex.playGame();
+        Set ex = new Set(a, b, ref);
+        Referee x = ex.playSet();
         System.out.println(x.getSummary());
     }
     
