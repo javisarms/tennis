@@ -104,12 +104,9 @@ public class Set {
     }
     
     public String getResult(Player winner) {
-        String result;
-        
-        result = winner.nickName + " " + winner.blastName + 
-        " has won the set";
-
-        return result;
+        summary += winner.nickName + " " + winner.blastName + 
+            " has won the set";   
+        return summary;
     }
 }
 
