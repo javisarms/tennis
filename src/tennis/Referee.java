@@ -11,7 +11,10 @@ package tennis;
  */
 public class Referee extends Human {
     Player winner;
+    Player loser;
     String summary = "";
+    Player p1;
+    Player p2;
     
     public Referee (String bln, String g, String cn, String fn, String nn, String 
             bd, String bp, String dd, String nat, double h, double w)
@@ -24,14 +27,44 @@ public class Referee extends Human {
         winner = win;
     }
     
+    public void setLoser(Player lose)
+    {
+        winner = lose;
+    }
+    
     public void setSummary(String line)
     {
         summary = line;
     }
     
+    public void setP1(Player p)
+    {
+        p1 = p;
+    }
+    
+    public void setP2(Player p)
+    {
+        p2 = p;
+    }
+    
     public Player getWinner()
     {
         return winner;
+    }
+    
+    public Player getLoser()
+    {
+        return loser;
+    }
+    
+    public Player getP1()
+    {
+        return p1;
+    }
+    
+    public Player getP2()
+    {
+        return p2;
     }
     
     public String getSummary()

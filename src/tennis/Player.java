@@ -17,13 +17,13 @@ public class Player extends Human {
     
     public Player (String bln, String g, String cn, String fn, String nn, String 
             bd, String bp, String dd, String nat, double h, double w, 
-            String han, String spon, int rank, String co)
+            String han, String spon, String co, int ra)
     {
         super(bln, g, cn, fn, nn, bd, bp, dd, nat, h, w);
         hand = han;
         sponsor = spon;
-        ranking = rank;
         coach = co; 
+        ranking = ra;
     }
     
     //Getters
@@ -37,7 +37,7 @@ public class Player extends Human {
         return sponsor;
     }
     
-    public int getRanking()
+    public int getRank()
     {
         return ranking;
     }

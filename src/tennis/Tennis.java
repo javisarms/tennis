@@ -5,6 +5,8 @@
  */
 package tennis;
 
+import java.util.Scanner;
+
 /**
  *
  * @author javiersarmiento
@@ -19,19 +21,59 @@ public class Tennis {
         
         //TODO
         //Generate random players, referees, and spectators
-        double height = 168.8;
-        double weight = 60.2;
-        Player a = new Player("Doe", "M", "Doe", "John", "John", "01/11/98", "",
-                "None", "PHI", height, weight, "R", "Coke", 1, "Steve");
-        Player b = new Player("Doe", "M", "Doe", "Jake", "Jake", "01/11/98", "",
-                "None", "PHI", height, weight, "R", "Coke", 1, "Steve");
-        Referee ref = new Referee("Doe", "M", "Doe", "Javi", "Javi", "01/11/98",
-                "", "None", "PHI", height, weight);
-        
-        Match ex = new Match(a, b, ref);
-        Referee x = ex.playMatch();
-        //System.out.println(x.getSummary());
         Generate g = new Generate();
+        Player[] males = new Player[128];
+        Player[] females = new Player[128];
+        Referee[] refs = new Referee[12];
+        for (int i = 0; i < 128; i++) {
+            males[i] = g.generateMalePlayer();
+            females[i] = g.generateFemalePlayer();
+        }
+        
+        for (int i = 0; i < 12; i++) {
+            refs[i] = g.generateReferee();
+        }
+        
+        Operations main = new Operations(males,females,refs);
+        
+        //Menu
+        Scanner input = new Scanner(System.in);
+        boolean mainLoop = true;
+        Tournament a = new Tournament(1, males, females, refs, 2018);
+        Referee[] r1 = a.play128();
+        a.setMale128Winners(r1);
+        System.out.println(r1[0].p1.getLastName() + r1[0].p2.getLastName());
+        a.play64();
+        System.out.println(r1[0].p1.getLastName() + r1[0].p2.getLastName());
+        //String choice;
+//        while (true) {
+//            System.out.println("\nTennis!");
+//            System.out.print("1.) Tournaments \n");
+//            System.out.print("2.) Players \n");
+//            System.out.print("3.) Exit \n");
+//            System.out.print("\nEnter Your Choice: ");
+//
+//            choice = input.next();
+//
+//            switch (choice) {
+//
+//                case "1":
+//                    main.tourMode();
+//                    break;
+//                    
+//                case "2":
+//                    main.viewPlayers();
+//                    break;
+//                case "3":
+//                    System.out.println("Exiting...");
+//                    System.exit(0);
+//                    break;
+//                    
+//                default:
+//                    System.out.println("This is not a valid Menu Option!");
+//                    break;
+//
+//            }
+//        }
     }
-    
 }

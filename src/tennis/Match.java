@@ -18,12 +18,17 @@ public class Match {
     int setCounter = 0;
     Set set;
     String summary = "";
+    int count = 0; //Avoids repition of showing the winner
     
     public Match(Player x, Player y, Referee r)
     {
         p1 = x;
         p2 = y;
-        ref = r; 
+        ref = r;
+        ref.setP1(p1);
+        ref.setP2(p2);
+        summary = "MATCH START! " + p1.blastName + " vs. " + p2.blastName 
+                + "------------------------------\n";
     }
     
     public Referee playMatch() {
@@ -34,10 +39,12 @@ public class Match {
         
         if (p1Score > 2) {
             ref.setWinner(p1);
+            getResult(p1);
         }
         
         else if (p2Score > 2) {
             ref.setWinner(p2);
+            getResult(p2);
         }
         
         return ref;
@@ -54,7 +61,7 @@ public class Match {
                 summary += set.getResult(x) + " | " + p1.nickName + " " +
                         p1.blastName + ": " + p1Score + " sets ૾ " + 
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
-                        + "\n ⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
+                        + "\n⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
                         + "⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟ SET END \n";
                 ref.setSummary(summary);
                 playMatch();
@@ -66,11 +73,21 @@ public class Match {
                 summary += set.getResult(x) + " | " + p1.nickName + " " +
                         p1.blastName + ": " + p1Score + " sets ૾ " + 
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
-                        + "\n ⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
+                        + "\n⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
                         + "⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟ SET END \n";
                 ref.setSummary(summary);
                 playMatch();
             }
         }
+    }
+    
+    public void getResult(Player winner) {
+        if (count == 0) {
+            summary += winner.nickName + " " + winner.blastName
+                    + " has won the match!\nMATCH END-------------------------";
+            ref.setSummary(summary);
+        }
+        
+        count++;
     }
 }

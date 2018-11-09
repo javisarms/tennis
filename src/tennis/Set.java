@@ -56,7 +56,7 @@ public class Set {
                     summary += game.getResult(x) + " | " + p1.nickName + " " +
                         p1.blastName + ": " + p1Score + " games ● " + 
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
-                        + "\n ====================================="
+                        + "\n====================================="
                         + "======================================GAME END \n";
                     
                     ref.setSummary(summary);
@@ -67,7 +67,7 @@ public class Set {
                     summary += game.getResult(x) + " | " + p1.nickName + " "
                             + p1.blastName + ": " + p1Score + " games ● "
                             + p2.nickName + " " + p2.blastName + ": " + p2Score
-                            + "\n ====================================="
+                            + "\n====================================="
                             + "======================================GAME END \n";
 
                     ref.setSummary(summary);
@@ -85,7 +85,7 @@ public class Set {
                     summary += game.getResult(x) + " | " + p1.nickName + " " +
                         p1.blastName + ": " + p1Score + " games ● " + 
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
-                        + "\n ====================================="
+                        + "\n====================================="
                         + "======================================GAME END \n";
                     ref.setSummary(summary);
                     playSet();
@@ -94,7 +94,7 @@ public class Set {
                     summary += game.getResult(x) + " | " + p1.nickName + " " +
                         p1.blastName + ": " + p1Score + " games ● " + 
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
-                        + "\n ====================================="
+                        + "\n====================================="
                         + "======================================GAME END \n";
                     ref.setSummary(summary);
                     playSet();
