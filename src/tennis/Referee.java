@@ -29,7 +29,7 @@ public class Referee extends Human {
     
     public void setLoser(Player lose)
     {
-        winner = lose;
+        loser = lose;
     }
     
     public void setSummary(String line)

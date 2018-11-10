@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package tennis;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -11,13 +12,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author javiersarmiento
  */
 public class Tournament {
+    Scanner input = new Scanner(System.in);
     String name;
     String surface;
     Player[] males;
     Player[] females;
     Referee[] refs;
     
-    Referee maleWinner;
+    Referee[] finalRef = new Referee[1];
     Referee[] hunnaRefs; //results for round of 128 mens
     Referee[] sixtsRefs; //64
     Referee[] thirtRefs; //32
@@ -25,7 +27,7 @@ public class Tournament {
     Referee[] quartRefs; //quarters
     Referee[] semiRefs; //semis
    
-    Referee femaleWinner;
+    Referee[] femaleWinner;
     Referee[] whunnaRefs; //results for round of 128 womens
     Referee[] wsixtsRefs; //64
     Referee[] wthirtRefs; //32
@@ -62,8 +64,41 @@ public class Tournament {
         }
     }
     
+    //=========================================================================
+    //PLAYING THE TOURNAMENT
+    //=========================================================================
+    
+    public void playTournament() {
+        switch(tournamentProgress) {
+            case 0:
+                play128();
+                break;
+            case 1:
+                play64();
+                break;
+            case 2:
+                play32();
+                break;
+            case 3:
+                play16();
+                break;
+            case 4:
+                playQuarters();
+                break;
+            case 5:
+                playSemis();
+                break;
+            case 6:
+                playFinals();
+                break;
+            case 7:
+                System.out.println("The tournament has concluded already.");
+                break;
+        }
+    }
+    
     //MALES
-    public Referee[] play128()
+    public void play128()
     {
         Referee[] results = new Referee[64];
         //Round of 128
@@ -77,9 +112,7 @@ public class Tournament {
         }
         tournamentProgress++;
         //set the hunnaRefs here
-        //setMale128Winners(results);
-        
-        return results;
+        setMale128Winners(results);        
     }
     
     public void play64()
@@ -172,8 +205,8 @@ public class Tournament {
         Player win2 = semiRefs[1].getWinner();
         Match mat = new Match(win1, win2, fin);
         fin = mat.playMatch();
-        tournamentProgress++;
         setMaleWinner(fin);
+        tournamentProgress++;
     }
     
     //Sets the winners
@@ -202,7 +235,7 @@ public class Tournament {
     }
     
     public void setMaleWinner(Referee result) {
-        maleWinner = result;
+        finalRef[0] = result;
     }
     
     //Get Winners
@@ -230,13 +263,268 @@ public class Tournament {
         return semiRefs;
     }
 
-    public Referee getMaleWinner() {
-        return maleWinner;
+    public Referee[] getMaleWinner() {
+        return finalRef;
     }
     
     //Getters
     public int getYear() {
         return tourYear;
+    }
+    
+    //=========================================================================
+    //VIEWING RESULTS
+    //=========================================================================
+    public void viewResults() {
+        resultsMenu();
+        resultsPicker();
+    }
+    
+    private void resultsMenu() {
+        System.out.println("");
+        switch(tournamentProgress) {
+            case 0:
+                System.out.println("VIEW RESULTS");
+                System.out.println("No round has been played yet.");
+                break;
+            case 1:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("00 - Exit");
+                break;
+            case 2:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("2 - Round of 64");
+                System.out.println("00 - Exit");
+                break;
+            case 3:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("2 - Round of 64");
+                System.out.println("3 - Round of 32");
+                System.out.println("00 - Exit");
+                break;
+            case 4:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("2 - Round of 64");
+                System.out.println("3 - Round of 32");
+                System.out.println("4 - Round of 16");
+                System.out.println("00 - Exit");
+                break;
+            case 5:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("2 - Round of 64");
+                System.out.println("3 - Round of 32");
+                System.out.println("4 - Round of 16");
+                System.out.println("5 - Quarters");
+                System.out.println("00 - Exit");
+                break;
+            case 6:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("2 - Round of 64");
+                System.out.println("3 - Round of 32");
+                System.out.println("4 - Round of 16");
+                System.out.println("5 - Quarters");
+                System.out.println("6 - Semis");
+                System.out.println("00 - Exit");
+                break;
+            case 7:
+                System.out.println("VIEW RESULTS");
+                System.out.println("1 - Round of 128");
+                System.out.println("2 - Round of 64");
+                System.out.println("3 - Round of 32");
+                System.out.println("4 - Round of 16");
+                System.out.println("5 - Quarters");
+                System.out.println("6 - Semis");
+                System.out.println("7 - Finals");
+                System.out.println("00 - Exit");
+                break;
+        }
+    }
+    
+    private void resultsPicker() {
+        switch(tournamentProgress) {
+            case 0:
+                break;
+            case 1:
+                System.out.print("\nEnter Your Choice: ");
+                String choice = input.next();
+                switch(choice){
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 2:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "2":
+                        viewRound(sixtsRefs);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 3:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "2":
+                        viewRound(sixtsRefs);
+                        break;
+                    case "3":
+                        viewRound(thirtRefs);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 4:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "2":
+                        viewRound(sixtsRefs);
+                        break;
+                    case "3":
+                        viewRound(thirtRefs);
+                        break;
+                    case "4":
+                        viewRound(sixteenRefs);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 5:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "2":
+                        viewRound(sixtsRefs);
+                        break;
+                    case "3":
+                        viewRound(thirtRefs);
+                        break;
+                    case "4":
+                        viewRound(sixteenRefs);
+                        break;
+                    case "5":
+                        viewRound(quartRefs);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 6:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "2":
+                        viewRound(sixtsRefs);
+                        break;
+                    case "3":
+                        viewRound(thirtRefs);
+                        break;
+                    case "4":
+                        viewRound(sixteenRefs);
+                        break;
+                    case "5":
+                        viewRound(quartRefs);
+                        break;
+                    case "6":
+                        viewRound(semiRefs);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 7:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(hunnaRefs);
+                        break;
+                    case "2":
+                        viewRound(sixtsRefs);
+                        break;
+                    case "3":
+                        viewRound(thirtRefs);
+                        break;
+                    case "4":
+                        viewRound(sixteenRefs);
+                        break;
+                    case "5":
+                        viewRound(quartRefs);
+                        break;
+                    case "6":
+                        viewRound(semiRefs);
+                        break;
+                    case "7":
+                        viewRound(finalRef);
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+        }
+    }
+    
+    private void viewRound(Referee[] matches) {
+        for (int i = 0; i < matches.length; i++) {
+            System.out.printf("\nMatch %s - %s def. %s", i+1, 
+            matches[i].getWinner().blastName, matches[i].getLoser().blastName);
+        }
+        System.out.println("\nInput match number to view summary");
+        System.out.println("Input '00' to return");
+        int matchChoice = input.nextInt();
+        if (matchChoice == 00) {
+            viewResults();
+        } else {
+            matchSum(matchChoice, matches);
+        }
+    }
+    
+    private void matchSum(int i, Referee[] matches) {
+        System.out.println(matches[i].getSummary());
+        viewResults();
     }
     
     public String getStatus() {

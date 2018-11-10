@@ -39,41 +39,35 @@ public class Tennis {
         //Menu
         Scanner input = new Scanner(System.in);
         boolean mainLoop = true;
-        Tournament a = new Tournament(1, males, females, refs, 2018);
-        Referee[] r1 = a.play128();
-        a.setMale128Winners(r1);
-        System.out.println(r1[0].p1.getLastName() + r1[0].p2.getLastName());
-        a.play64();
-        System.out.println(r1[0].p1.getLastName() + r1[0].p2.getLastName());
-        //String choice;
-//        while (true) {
-//            System.out.println("\nTennis!");
-//            System.out.print("1.) Tournaments \n");
-//            System.out.print("2.) Players \n");
-//            System.out.print("3.) Exit \n");
-//            System.out.print("\nEnter Your Choice: ");
-//
-//            choice = input.next();
-//
-//            switch (choice) {
-//
-//                case "1":
-//                    main.tourMode();
-//                    break;
-//                    
-//                case "2":
-//                    main.viewPlayers();
-//                    break;
-//                case "3":
-//                    System.out.println("Exiting...");
-//                    System.exit(0);
-//                    break;
-//                    
-//                default:
-//                    System.out.println("This is not a valid Menu Option!");
-//                    break;
-//
-//            }
-//        }
+        String choice;
+        while (true) {
+            System.out.println("\nTennis!");
+            System.out.print("1.) Tournaments \n");
+            System.out.print("2.) Players \n");
+            System.out.print("3.) Exit \n");
+            System.out.print("\nEnter Your Choice: ");
+
+            choice = input.next();
+
+            switch (choice) {
+
+                case "1":
+                    main.tourMode();
+                    break;
+                    
+                case "2":
+                    main.viewPlayers();
+                    break;
+                case "3":
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+                    
+                default:
+                    System.out.println("This is not a valid Menu Option!");
+                    break;
+
+            }
+        }
     }
 }

@@ -39,11 +39,13 @@ public class Match {
         
         if (p1Score > 2) {
             ref.setWinner(p1);
+            ref.setLoser(p2);
             getResult(p1);
         }
         
         else if (p2Score > 2) {
             ref.setWinner(p2);
+            ref.setLoser(p1);
             getResult(p2);
         }
         

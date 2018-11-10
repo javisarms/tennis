@@ -43,7 +43,7 @@ public class Operations {
             generateCurrentTournaments();
         }
         System.out.printf("\nTOURNAMENTS - %s\n", year);
-        System.out.println("1 - Play Current Tournament");
+        System.out.println("1 - View Current Tournament");
         System.out.println("2 - View Future Tournaments");
         System.out.println("3 - View Past Tournaments");
         System.out.println("4 - Exit");
@@ -58,6 +58,7 @@ public class Operations {
                 viewFutureTournaments();
                 break;
             case "3":
+                viewPastTournaments();
                 break;
             case "4":
                 return;
@@ -88,9 +89,16 @@ public class Operations {
 
         switch (choice) {
             case "1":
-                playTournament();
+                t.playTournament();
+                if (t.getProg() == 7) {
+                    //If the finals are done, remove the tournament from 
+                    //currentTournaments and put into the past
+                    currentTournaments.remove(t);
+                    pastTournaments.add(t);
+                }
                 break;
             case "2":
+                t.viewResults();
                 break;
             case "3":
                 return;
@@ -98,15 +106,9 @@ public class Operations {
                 System.out.println("This is not a valid Menu Option!");
                 break;
         }
-        //Remove the tournament from currentTournaments and put into past
-        //currentTournaments.remove(t);
-        //pastTournaments.add(t);
-    }
-        
-    private void playTournament() {
-        
     }
     
+    //VIEW FUTURE TOURNAMENTS FOR THE YEAR  
     private void viewFutureTournaments() {
         System.out.println("");
         for (int i = 0; i < currentTournaments.size(); i++) {
@@ -115,6 +117,34 @@ public class Operations {
                         year);
             }
         }
+    }
+    
+    //VIEW PAST TOURNAMENTS AND ITS SUMMARY/RESULTS 
+    private void viewPastTournaments() {
+        System.out.println("");
+        for (int i = 0; i < pastTournaments.size(); i++) {
+            System.out.printf("%s - %s %s\n", i+1, year, 
+            pastTournaments.get(i).name);
+        }
+        System.out.println("\nInput tournament number to view details");
+        System.out.println("Input '00' to return");
+        int tourChoice = input.nextInt();
+        if (tourChoice == 00) {
+            return;
+        } else {
+            viewPastTournament(tourChoice);
+        }
+    }
+    
+    private void viewPastTournament(int i) {
+        Tournament t = pastTournaments.get(i-1);
+        System.out.printf("\n%s %s", t.getYear(), t.name);
+        System.out.printf("\nFinals: %s def. %s",
+        t.getMaleWinner()[0].getWinner().blastName, 
+        t.getMaleWinner()[0].getLoser().blastName );
+        System.out.println("--------------------------------------\n");
+        t.viewResults();
+        
     }
     
     //generates tournaments for the year
