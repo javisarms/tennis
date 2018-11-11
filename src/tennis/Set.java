@@ -17,12 +17,16 @@ public class Set {
     String summary = "";
     Referee ref;
     Game game;
+    Player winner;
+    Player loser;
+    
     
     public Set(Player x, Player y, Referee r)
     {
         p1 = x;
         p2 = y;
         ref = r; 
+        playSet();
     }
     
     public Referee playSet()
@@ -30,11 +34,11 @@ public class Set {
         playGame();
         
         if (p1Score > 5) {
-            ref.setWinner(p1);
+            setWinner(p1);
         }
         
         else if (p2Score > 5) {
-            ref.setWinner(p2);
+            setWinner(p2);
         }
                 
         return ref;
@@ -48,7 +52,7 @@ public class Set {
                 game.setServer(p1);
                 game.setReceiver(p2);
                 gameCounter++;
-                Player x = game.playGame().getWinner(); 
+                Player x = game.getWinner(); 
                 //returns the winner of the game
                 if (x == p1) {
                     p1Score++;
@@ -59,7 +63,7 @@ public class Set {
                         + "\n====================================="
                         + "======================================GAME END \n";
                     
-                    ref.setSummary(summary);
+                    setSummary(summary);
                     
                     playSet();
                 } else if (x == p2) {
@@ -70,14 +74,14 @@ public class Set {
                             + "\n====================================="
                             + "======================================GAME END \n";
 
-                    ref.setSummary(summary);
+                    setSummary(summary);
                     playSet();
                 }
             } else {
                 game.setServer(p2);
                 game.setReceiver(p1);
                 gameCounter++;
-                Player x = game.playGame().getWinner(); 
+                Player x = game.getWinner(); 
                 //returns the winner of the game
 
                 if (x == p1) {
@@ -87,7 +91,7 @@ public class Set {
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
                         + "\n====================================="
                         + "======================================GAME END \n";
-                    ref.setSummary(summary);
+                    setSummary(summary);
                     playSet();
                 } else if (x == p2) {
                     p2Score++;
@@ -96,7 +100,7 @@ public class Set {
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
                         + "\n====================================="
                         + "======================================GAME END \n";
-                    ref.setSummary(summary);
+                    setSummary(summary);
                     playSet();
                 }
             }
@@ -106,6 +110,30 @@ public class Set {
     public String getResult(Player winner) {
         summary += winner.nickName + " " + winner.blastName + 
             " has won the set";   
+        return summary;
+    }
+    
+    private void setWinner(Player win) {
+        winner = win;
+    }
+
+    private void setLoser(Player lose) {
+        loser = lose;
+    }
+
+    private void setSummary(String line) {
+        summary = line;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getLoser() {
+        return loser;
+    }
+
+    public String getSummary() {
         return summary;
     }
 }

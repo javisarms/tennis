@@ -139,9 +139,9 @@ public class Operations {
     private void viewPastTournament(int i) {
         Tournament t = pastTournaments.get(i-1);
         System.out.printf("\n%s %s", t.getYear(), t.name);
-        System.out.printf("\nFinals: %s def. %s",
-        t.getMaleWinner()[0].getWinner().blastName, 
-        t.getMaleWinner()[0].getLoser().blastName );
+        //System.out.printf("\nFinals: %s def. %s",
+        //t.getMaleWinner()[0].getWinner().blastName, 
+        //t.getMaleWinner()[0].getLoser().blastName );
         System.out.println("--------------------------------------\n");
         t.viewResults();
         

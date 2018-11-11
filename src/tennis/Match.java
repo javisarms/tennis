@@ -19,16 +19,17 @@ public class Match {
     Set set;
     String summary = "";
     int count = 0; //Avoids repition of showing the winner
+    Player winner;
+    Player loser;
     
     public Match(Player x, Player y, Referee r)
     {
         p1 = x;
         p2 = y;
         ref = r;
-        ref.setP1(p1);
-        ref.setP2(p2);
         summary = "MATCH START! " + p1.blastName + " vs. " + p2.blastName 
                 + "------------------------------\n";
+        playMatch();
     }
     
     public Referee playMatch() {
@@ -38,14 +39,14 @@ public class Match {
         }
         
         if (p1Score > 2) {
-            ref.setWinner(p1);
-            ref.setLoser(p2);
+            setWinner(p1);
+            setLoser(p2);
             getResult(p1);
         }
         
         else if (p2Score > 2) {
-            ref.setWinner(p2);
-            ref.setLoser(p1);
+            setWinner(p2);
+            setLoser(p1);
             getResult(p2);
         }
         
@@ -55,7 +56,7 @@ public class Match {
     private void set() {
         if (p1Score <= 2 && p2Score <= 2) {
             set = new Set(p1, p2, ref);
-            Player x = set.playSet().getWinner(); //returns the winner of the set
+            Player x = set.getWinner(); //returns the winner of the set
             
             //If p1 won
             if (x == p1) {
@@ -65,7 +66,7 @@ public class Match {
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
                         + "\n⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
                         + "⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟ SET END \n";
-                ref.setSummary(summary);
+                setSummary(summary);
                 playMatch();
             } 
             
@@ -77,7 +78,7 @@ public class Match {
                         p2.nickName + " " + p2.blastName + ": " + p2Score 
                         + "\n⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
                         + "⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟ SET END \n";
-                ref.setSummary(summary);
+                setSummary(summary);
                 playMatch();
             }
         }
@@ -87,9 +88,41 @@ public class Match {
         if (count == 0) {
             summary += winner.nickName + " " + winner.blastName
                     + " has won the match!\nMATCH END-------------------------";
-            ref.setSummary(summary);
+            setSummary(summary);
         }
         
         count++;
+    }
+    
+    private void setWinner(Player win) {
+        winner = win;
+    }
+
+    private void setLoser(Player lose) {
+        loser = lose;
+    }
+
+    private void setSummary(String line) {
+        summary = line;
+    }
+    
+    public Player getP1() {
+        return p1;
+    }
+    
+    public Player getP2() {
+        return p2;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getLoser() {
+        return loser;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 }

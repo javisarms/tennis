@@ -18,11 +18,14 @@ public class Game {
     int p2Score = 0;
     Exchange ex;
     String summary = "";
+    Player winner;
+    Player loser;
 
     public Game(Player x, Player y, Referee r) {
         ser = x;
         rec = y;
         ref = r;
+        playGame();
     }
     
     public Referee playGame() {
@@ -30,11 +33,11 @@ public class Game {
         exchange();
         
         if (p1Score > 3) {
-            ref.setWinner(ser);
+            setWinner(ser);
         }
         
         else if (p2Score > 3) {
-            ref.setWinner(rec);
+            setWinner(rec);
         }
         
         return ref;
@@ -42,8 +45,8 @@ public class Game {
     
     private void exchange() {
         if (p1Score <= 3 && p2Score <= 3) {
-            ex = new Exchange(ser, rec, ref);
-            Player x = ex.service(0).getWinner(); 
+            ex = new Exchange(ser, rec, ref, 0);
+            Player x = ex.getWinner(); 
             //returns the winner of the exchange
             
             //If server won
@@ -53,7 +56,7 @@ public class Game {
                         ser.blastName + ": " + getP1TScore() + "]  [" + 
                         rec.nickName + " " + rec.blastName + ": " + 
                         getP2TScore() + "] \n";
-                ref.setSummary(summary);
+                setSummary(summary);
                 playGame();
             } 
             //If receiver won
@@ -63,7 +66,7 @@ public class Game {
                         ser.blastName + ": " + getP1TScore() + "]  [" + 
                         rec.nickName + " " + rec.blastName + ": " + 
                         getP2TScore() + "] \n";
-                ref.setSummary(summary);
+                setSummary(summary);
                 playGame();
             }
         }
@@ -137,6 +140,30 @@ public class Game {
 
     public void setReceiver(Player p1) {
         rec = p1;
+    }
+    
+    private void setWinner(Player win) {
+        winner = win;
+    }
+
+    private void setLoser(Player lose) {
+        loser = lose;
+    }
+
+    private void setSummary(String line) {
+        summary = line;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getLoser() {
+        return loser;
+    }
+
+    public String getSummary() {
+        return summary;
     }
     
 }

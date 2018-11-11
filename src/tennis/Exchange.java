@@ -15,25 +15,29 @@ public class Exchange {
     Player rec;
     Referee ref;
     Random r = new Random();
+    String summary;
+    Player winner;
+    Player loser;
     
-    public Exchange(Player x, Player y, Referee r) {
+    public Exchange(Player x, Player y, Referee r, int i) {
         ser = x;
         rec = y;
         ref = r;
+        service(i);
     }
     
-    public Referee service(int f) {
+    public void service(int f) {
         int faultCount = f;
         float chance = r.nextFloat(); //generates a random float
         
         //Chance of winning
         if (chance <= 0.5f) {
-            ref.setWinner(ser);
+            setWinner(ser);
         }
         
         //Service fault
         else {
-            ref.setWinner(rec);
+            setWinner(rec);
 //            if(faultCount == 0) {
 //                faultCount ++;
 //                winner = null;
@@ -45,7 +49,6 @@ public class Exchange {
 //            }
         }
         
-        return ref;
     }
     
     //Displays the outcome of the exchange
@@ -57,5 +60,29 @@ public class Exchange {
         
         
         return result;
+    }
+    
+    private void setWinner(Player win) {
+        winner = win;
+    }
+
+    private void setLoser(Player lose) {
+        loser = lose;
+    }
+
+    private void setSummary(String line) {
+        summary = line;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getLoser() {
+        return loser;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 }

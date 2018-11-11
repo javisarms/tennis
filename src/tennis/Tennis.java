@@ -24,7 +24,7 @@ public class Tennis {
         Generate g = new Generate();
         Player[] males = new Player[128];
         Player[] females = new Player[128];
-        Referee[] refs = new Referee[12];
+        Referee[] refs = new Referee[64];
         for (int i = 0; i < 128; i++) {
             males[i] = g.generateMalePlayer();
             females[i] = g.generateFemalePlayer();
@@ -33,6 +33,9 @@ public class Tennis {
         for (int i = 0; i < 12; i++) {
             refs[i] = g.generateReferee();
         }
+        
+        //Match game = new Match(males[0],males[1],refs[0]);
+        //System.out.println(game.getSummary());
         
         Operations main = new Operations(males,females,refs);
         

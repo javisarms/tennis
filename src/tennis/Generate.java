@@ -50,7 +50,10 @@ public class Generate {
         "Johnson", "Johnsen", "Jones", "Jurgenson", "Kalleg", "Kaskel", 
         "Keller", "Leisinger", "LePage", "Lewis", "Linde", "Lulloff", "Maki", 
         "Martin", "McGinnis", "Mills", "Moody", "Moore", "Napier", "Nelson", 
-        "Norquist", "Nuttle", "Olson", "Ostrander", "Reamer", "Reyes"};
+        "Norquist", "Nuttle", "Olson", "Ostrander", "Reamer", "Reyes", "Chua",
+        "Racela", "Sarmiento", "Morelle", "Zi", "Zhu", "Chu", "Li", "Qi", 
+        "Harden", "James", "Curry", "Bro", "Ateneo", "Avelino", "Pua", "Salmon"
+        , "Chickowski", "Hwoarang", "Kazama"};
     
     String[] nationality = new String[]{"USA", "Japan", "Philippines", "China",
         "France", "Spain", "Italy", "India", "England", "Brazil"
