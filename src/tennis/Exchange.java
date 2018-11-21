@@ -60,7 +60,7 @@ public class Exchange {
             }
         }
         
-        else if (chance <= favChance) {
+        else if (faultChance <= chance && chance <= favChance+faultChance) {
             String result = ser.firstName + " " + ser.blastName
                     + " has won the exchange";
             setSummary(result);

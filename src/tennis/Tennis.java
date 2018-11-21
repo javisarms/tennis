@@ -45,7 +45,7 @@ public class Tennis {
         boolean mainLoop = true;
         String choice;
         while (true) {
-            System.out.println("\nTennis!");
+            System.out.println("\nTennis! " + main.year);
             System.out.print("1.) Tournaments \n");
             System.out.print("2.) Players \n");
             System.out.print("3.) Exit \n");

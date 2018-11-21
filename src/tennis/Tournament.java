@@ -15,6 +15,7 @@ public class Tournament {
     Scanner input = new Scanner(System.in);
     TData data = new TData();
     String name;
+    String place;
     String surface;
     Player[] males;
     Player[] females;
@@ -36,15 +37,23 @@ public class Tournament {
         switch(choice) {
             case 1:
                 name = "Australian Open";
+                place = "Melbourne";
+                surface = "Plexicushion";
                 break;
             case 2:
-                name = "French Open";
+                name = "Roland Garros";
+                place = "Paris";
+                surface = "Clay";
                 break;
             case 3:
                 name = "Wimbledon";
+                place = "London";
+                surface = "Grass";
                 break;
             case 4:
                 name = "US Open";
+                place = "New York";
+                surface = "Decoturf";
                 break;
         }
     }

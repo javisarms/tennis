@@ -80,6 +80,7 @@ public class Operations {
         }
         System.out.println("\nCurrent Tournament");
         System.out.printf("%s %s\n", t.name, year);
+        System.out.printf("%s - %s\n", t.place, t.surface);
         System.out.printf("Status: %s\n", t.getStatus());
         System.out.println("1 - Play the round");
         System.out.println("2 - View results");
@@ -139,6 +140,7 @@ public class Operations {
     private void viewPastTournament(int i) {
         Tournament t = pastTournaments.get(i-1);
         System.out.printf("\n%s %s", t.getYear(), t.name);
+        System.out.printf("\n%s - %s", t.place, t.surface);
         System.out.printf("\nFinals: %s def. %s",
         t.data.getMaleWinner()[0].getWinner().blastName, 
         t.data.getMaleWinner()[0].getLoser().blastName );
