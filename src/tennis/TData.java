@@ -5,15 +5,12 @@
  */
 package tennis;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author javiersarmiento
  */
 public class TData {
     Match[] finals = new Match[1];
-    //Referee[] hunnaRefs; //results for round of 128 mens
     Match[] hunna = new Match[64];
     Match[] sixts; //64
     Match[] thirt; //32
@@ -21,28 +18,44 @@ public class TData {
     Match[] quart; //quarters
     Match[] semi; //semis
     
-    public void setWinners(Match[] results, int tp){
+    //Womens'
+    Match[] wfinals = new Match[1];
+    Match[] whunna = new Match[64];
+    Match[] wsixts; //64
+    Match[] wthirt; //32
+    Match[] wsixteen; //16
+    Match[] wquart; //quarters
+    Match[] wsemi; //semis
+    
+    public void setWinners(Match[] results, Match[] wresults, int tp){
         switch(tp) {
             case 0:
                 hunna = results;
+                whunna = wresults;
                 break;
             case 1:
                 sixts = results;
+                wsixts = wresults;
                 break;
             case 2:
                 thirt = results;
+                wthirt = wresults;
                 break;
             case 3:
                 sixteen = results;
+                wsixteen = wresults;
                 break;
             case 4:
                 quart = results;
+                wquart = wresults;
                 break;
             case 5:
                 semi = results;
+                wsemi = wresults;
                 break;
             case 6:
                 finals[0] = results[0];
+                wfinals[0] = wresults[0];
                 break;
         }
     }
@@ -73,6 +86,34 @@ public class TData {
     
     public Match[] getMaleWinner() {
         return finals;
+    }
+    
+    public Match[] getFemale128Winners() {
+        return whunna;
+    }
+
+    public Match[] getFemale64Winners() {
+        return wsixts;
+    }
+
+    public Match[] getFemale32Winners() {
+        return wthirt;
+    }
+
+    public Match[] getFemale16Winners() {
+        return wsixteen;
+    }
+
+    public Match[] getFemaleQuartersWinners() {
+        return wquart;
+    }
+
+    public Match[] getFemaleSemisWinners() {
+        return wsemi;
+    }
+
+    public Match[] getFemaleWinner() {
+        return wfinals;
     }
     
 }

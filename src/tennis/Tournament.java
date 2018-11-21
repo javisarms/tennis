@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package tennis;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -60,22 +59,24 @@ public class Tournament {
                 play128();
                 break;
             case 1:
-                playRound(data.getMale128Winners());
+                playRound(data.getMale128Winners(), data.getFemale128Winners());
                 break;
             case 2:
-                playRound(data.getMale64Winners());
+                playRound(data.getMale64Winners(), data.getFemale64Winners());
                 break;
             case 3:
-                playRound(data.getMale32Winners());
+                playRound(data.getMale32Winners(), data.getFemale32Winners());
                 break;
             case 4:
-                playRound(data.getMale16Winners());
+                playRound(data.getMale16Winners(), data.getFemale16Winners());
                 break;
             case 5:
-                playRound(data.getMaleQuartersWinners());
+                playRound(data.getMaleQuartersWinners(), 
+                        data.getFemaleQuartersWinners());
                 break;
             case 6:
-                playRound(data.getMaleSemisWinners());
+                playRound(data.getMaleSemisWinners(), 
+                        data.getFemaleSemisWinners());
                 System.out.println("THE TOURNAMENT HAS CONCLUDED");
                 break;
             case 7:
@@ -86,6 +87,7 @@ public class Tournament {
     
     //MALES
     public void play128() {
+        //males
         Player[] matches = males;
         Player[] halfOne = new Player[64];
         Player[] halfTwo = new Player[64];
@@ -102,14 +104,39 @@ public class Tournament {
             Player p1 = halfOne[i];
             Player p2 = halfTwo[i];
             Match result = new Match(p1, p2, refs[r]);
+            result.getWinner().addWin();
+            result.getLoser().addLoss();
             results[i] = result;
         }
         
-        data.setWinners(results, tournamentProgress);
+        //females
+        Player[] wmatches = females;
+        Player[] whalfOne = new Player[64];
+        Player[] whalfTwo = new Player[64];
+        Match[] wresults = new Match[64];
+
+        for (int i = 0; i < 64; i++) {
+            whalfOne[i] = wmatches[i];
+            whalfTwo[i] = wmatches[64 + i];
+        }
+
+        for (int i = 0; i < 64; i++) {
+            int r = ThreadLocalRandom.current().nextInt(0, 12); // this
+            // generates a random number from 0-12 to pick a referee
+            Player p1 = whalfOne[i];
+            Player p2 = whalfTwo[i];
+            Match result = new Match(p1, p2, refs[r]);
+            result.getWinner().addWin();
+            result.getLoser().addLoss();
+            wresults[i] = result;
+        }
+        
+        data.setWinners(results, wresults, tournamentProgress);
         tournamentProgress++;
     }
     
-    public void playRound(Match[] winners) {
+    public void playRound(Match[] winners, Match[] woWinners) {
+        //males
         int resLength = winners.length/2;
         Match[] results = new Match[resLength];
         
@@ -126,9 +153,33 @@ public class Tournament {
             Player p1 = halfOne[i];
             Player p2 = halfTwo[i];
             Match result = new Match(p1, p2, refs[r]);
+            result.getWinner().addWin();
+            result.getLoser().addLoss();
             results[i] = result;
         }
-        data.setWinners(results, tournamentProgress);
+        
+        //females
+        Match[] wresults = new Match[resLength];
+
+        Player[] whalfOne = new Player[64];
+        Player[] whalfTwo = new Player[64];
+        for (int i = 0; i < resLength; i++) {
+            whalfOne[i] = woWinners[i].getWinner();
+            whalfTwo[i] = woWinners[resLength + i].getWinner();
+        }
+
+        for (int i = 0; i < resLength; i++) {
+            int r = ThreadLocalRandom.current().nextInt(0, 12); // this
+            // generates a random number from 0-12 to pick a referee
+            Player p1 = whalfOne[i];
+            Player p2 = whalfTwo[i];
+            Match result = new Match(p1, p2, refs[r]);
+            result.getWinner().addWin();
+            result.getLoser().addLoss();
+            wresults[i] = result;
+        }
+        
+        data.setWinners(results, wresults, tournamentProgress);
         tournamentProgress++;
     }
     
@@ -142,7 +193,192 @@ public class Tournament {
     //=========================================================================
     public void viewResults() {
         resultsMenu();
-        resultsPicker();
+        switch (tournamentProgress) {
+            case 0:
+                break;
+            case 1:
+                System.out.print("\nEnter Your Choice: ");
+                String choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 2:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "2":
+                        viewRound(data.getMale64Winners(), 
+                                data.getFemale64Winners());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 3:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "2":
+                        viewRound(data.getMale64Winners(),
+                                data.getFemale64Winners());
+                        break;
+                    case "3":
+                        viewRound(data.getMale32Winners(),
+                                data.getFemale32Winners());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 4:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "2":
+                        viewRound(data.getMale64Winners(), 
+                                data.getFemale64Winners());
+                        break;
+                    case "3":
+                        viewRound(data.getMale32Winners(),
+                                data.getFemale32Winners());
+                        break;
+                    case "4":
+                        viewRound(data.getMale16Winners(),
+                                data.getFemale16Winners());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 5:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "2":
+                        viewRound(data.getMale64Winners(), 
+                                data.getFemale64Winners());
+                        break;
+                    case "3":
+                        viewRound(data.getMale32Winners(),
+                                data.getFemale32Winners());
+                        break;
+                    case "4":
+                        viewRound(data.getMale16Winners(),
+                                data.getFemale16Winners());
+                        break;
+                    case "5":
+                        viewRound(data.getMaleQuartersWinners(), 
+                                data.getFemaleQuartersWinners());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 6:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "2":
+                        viewRound(data.getMale64Winners(), 
+                                data.getFemale64Winners());
+                        break;
+                    case "3":
+                        viewRound(data.getMale32Winners(),
+                                data.getFemale32Winners());
+                        break;
+                    case "4":
+                        viewRound(data.getMale16Winners(),
+                                data.getFemale16Winners());
+                        break;
+                    case "5":
+                        viewRound(data.getMaleQuartersWinners(),
+                                data.getFemaleQuartersWinners());
+                        break;
+                    case "6":
+                        viewRound(data.getMaleSemisWinners(),
+                                data.getFemaleSemisWinners());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+            case 7:
+                System.out.print("\nEnter Your Choice: ");
+                choice = input.next();
+                switch (choice) {
+                    case "1":
+                        viewRound(data.getMale128Winners(),
+                                data.getFemale128Winners());
+                        break;
+                    case "2":
+                        viewRound(data.getMale64Winners(),
+                                data.getFemale64Winners());
+                        break;
+                    case "3":
+                        viewRound(data.getMale32Winners(),
+                                data.getFemale32Winners());
+                        break;
+                    case "4":
+                        viewRound(data.getMale16Winners(),
+                                data.getFemale16Winners());
+                        break;
+                    case "5":
+                        viewRound(data.getMaleQuartersWinners(), 
+                                data.getFemaleQuartersWinners());
+                        break;
+                    case "6":
+                        viewRound(data.getMaleSemisWinners(),
+                                data.getFemaleSemisWinners());
+                        break;
+                    case "7":
+                        viewRound(data.getMaleWinner(),
+                                data.getFemaleWinner());
+                        break;
+                    case "00":
+                        return;
+                    default:
+                        System.out.println("This is not a valid Menu Option!");
+                        break;
+                }
+        }
     }
     
     private void resultsMenu() {
@@ -210,180 +446,51 @@ public class Tournament {
                 break;
         }
     }
-    
-    private void resultsPicker() {
-        switch(tournamentProgress) {
-            case 0:
+        
+    private void viewRound(Match[] matches, Match[] wmatches) {
+        System.out.println("VIEW RESULTS");
+        System.out.println("1 - Males");
+        System.out.println("2 - Females");
+        System.out.println("00 - Exit");
+        System.out.print("\nEnter Your Choice: ");
+        String choice = input.next();
+        
+        switch (choice) {
+            case "1":
+                for (int i = 0; i < matches.length; i++) {
+                    System.out.printf("\nMatch %s - %s %s def. %s %s", i + 1,
+                            matches[i].getWinner().firstName, matches[i].getWinner().blastName,
+                            matches[i].getLoser().firstName, matches[i].getLoser().blastName);
+                }
+                System.out.println("\nInput match number to view summary");
+                System.out.println("Input '00' to return");
+                int matchChoice = input.nextInt();
+                if (matchChoice == 00) {
+                    viewResults();
+                } else {
+                    matchSum(matchChoice, matches);
+                }
                 break;
-            case 1:
-                System.out.print("\nEnter Your Choice: ");
-                String choice = input.next();
-                switch(choice){
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
+            case "2":
+                for (int i = 0; i < wmatches.length; i++) {
+                    System.out.printf("\nMatch %s - %s %s def. %s %s", i + 1,
+                            wmatches[i].getWinner().firstName, wmatches[i].getWinner().blastName,
+                            wmatches[i].getLoser().firstName, wmatches[i].getLoser().blastName);
                 }
-            case 2:
-                System.out.print("\nEnter Your Choice: ");
-                choice = input.next();
-                switch (choice) {
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "2":
-                        viewRound(data.getMale64Winners());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
+                System.out.println("\nInput match number to view summary");
+                System.out.println("Input '00' to return");
+                matchChoice = input.nextInt();
+                if (matchChoice == 00) {
+                    viewResults();
+                } else {
+                    matchSum(matchChoice, wmatches);
                 }
-            case 3:
-                System.out.print("\nEnter Your Choice: ");
-                choice = input.next();
-                switch (choice) {
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "2":
-                        viewRound(data.getMale64Winners());
-                        break;
-                    case "3":
-                        viewRound(data.getMale32Winners());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
-                }
-            case 4:
-                System.out.print("\nEnter Your Choice: ");
-                choice = input.next();
-                switch (choice) {
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "2":
-                        viewRound(data.getMale64Winners());
-                        break;
-                    case "3":
-                        viewRound(data.getMale32Winners());
-                        break;
-                    case "4":
-                        viewRound(data.getMale16Winners());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
-                }
-            case 5:
-                System.out.print("\nEnter Your Choice: ");
-                choice = input.next();
-                switch (choice) {
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "2":
-                        viewRound(data.getMale64Winners());
-                        break;
-                    case "3":
-                        viewRound(data.getMale32Winners());
-                        break;
-                    case "4":
-                        viewRound(data.getMale16Winners());
-                        break;
-                    case "5":
-                        viewRound(data.getMaleQuartersWinners());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
-                }
-            case 6:
-                System.out.print("\nEnter Your Choice: ");
-                choice = input.next();
-                switch (choice) {
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "2":
-                        viewRound(data.getMale64Winners());
-                        break;
-                    case "3":
-                        viewRound(data.getMale32Winners());
-                        break;
-                    case "4":
-                        viewRound(data.getMale16Winners());
-                        break;
-                    case "5":
-                        viewRound(data.getMaleQuartersWinners());
-                        break;
-                    case "6":
-                        viewRound(data.getMaleSemisWinners());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
-                }
-            case 7:
-                System.out.print("\nEnter Your Choice: ");
-                choice = input.next();
-                switch (choice) {
-                    case "1":
-                        viewRound(data.getMale128Winners());
-                        break;
-                    case "2":
-                        viewRound(data.getMale64Winners());
-                        break;
-                    case "3":
-                        viewRound(data.getMale32Winners());
-                        break;
-                    case "4":
-                        viewRound(data.getMale16Winners());
-                        break;
-                    case "5":
-                        viewRound(data.getMaleQuartersWinners());
-                        break;
-                    case "6":
-                        viewRound(data.getMaleSemisWinners());
-                        break;
-                    case "7":
-                        viewRound(data.getMaleWinner());
-                        break;
-                    case "00":
-                        return;
-                    default:
-                        System.out.println("This is not a valid Menu Option!");
-                        break;
-                }
-        }
-    }
-    
-    private void viewRound(Match[] matches) {
-        for (int i = 0; i < matches.length; i++) {
-            System.out.printf("\nMatch %s - %s def. %s", i+1, 
-            matches[i].getWinner().blastName, matches[i].getLoser().blastName);
-        }
-        System.out.println("\nInput match number to view summary");
-        System.out.println("Input '00' to return");
-        int matchChoice = input.nextInt();
-        if (matchChoice == 00) {
-            viewResults();
-        } else {
-            matchSum(matchChoice, matches);
+                break;
+            case "00":
+                return;
+            default:
+                System.out.println("This is not a valid Menu Option!");
+                break;
         }
     }
     

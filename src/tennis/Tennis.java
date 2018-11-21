@@ -38,7 +38,8 @@ public class Tennis {
         //System.out.println(game.getSummary());
         
         Operations main = new Operations(males,females,refs);
-        
+//        Game trial = new Game(males[0],males[64],refs[0]);
+//        System.out.println(trial.getSummary());
         //Menu
         Scanner input = new Scanner(System.in);
         boolean mainLoop = true;

@@ -126,7 +126,7 @@ public class Operations {
             System.out.printf("%s - %s %s\n", i+1, year, 
             pastTournaments.get(i).name);
         }
-        System.out.println("\nInput tournament number to view details");
+        System.out.println("Input tournament number to view details");
         System.out.println("Input '00' to return");
         int tourChoice = input.nextInt();
         if (tourChoice == 00) {
@@ -139,9 +139,9 @@ public class Operations {
     private void viewPastTournament(int i) {
         Tournament t = pastTournaments.get(i-1);
         System.out.printf("\n%s %s", t.getYear(), t.name);
-        //System.out.printf("\nFinals: %s def. %s",
-        //t.getMaleWinner()[0].getWinner().blastName, 
-        //t.getMaleWinner()[0].getLoser().blastName );
+        System.out.printf("\nFinals: %s def. %s",
+        t.data.getMaleWinner()[0].getWinner().blastName, 
+        t.data.getMaleWinner()[0].getLoser().blastName );
         System.out.println("--------------------------------------\n");
         t.viewResults();
         
@@ -242,14 +242,19 @@ public class Operations {
     
     private void viewPlayer(int rank, Player[] players) {
         Player player = players[rank-1];
-        System.out.printf("\nRank: %s", rank);
         System.out.printf("\nName: %s %s", player.getFirstName(), player.getLastName());
+        System.out.printf("\nRank: %s | Wins: %s | Losses: %s", rank
+        , player.getWins(), player.getLosses());
         System.out.printf("\nNickname: %s", player.getNickName());
         System.out.printf("\nBirthdate: %s", player.birthDate);
         System.out.printf("\nBirthplace: %s", player.birthPlace);
         System.out.printf("\nCountry: %s", player.nation);
         System.out.printf("\nHeight: %s", player.height);
         System.out.printf("\nWeight: %s", player.weight);
+        System.out.printf("\nAverage first serve: %s kph", 
+                player.getAverageFirstServe());
+        System.out.printf("\nAverage second serve: %s kph",
+                player.getAverageSecondServe());
         System.out.printf("\nHand: %s", player.getHand());
         System.out.printf("\nSponsor: %s", player.getSponsor());
         System.out.printf("\nCoach: %s", player.getCoach());

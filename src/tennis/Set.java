@@ -57,9 +57,9 @@ public class Set {
                 if (x == p1) {
                     p1Score++;
                     
-                    summary += game.getResult(x) + " | " + p1.nickName + " " +
+                    summary += game.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " games ● " + 
-                        p2.nickName + " " + p2.blastName + ": " + p2Score 
+                        p2.firstName + " " + p2.blastName + ": " + p2Score 
                         + "\n====================================="
                         + "======================================GAME END \n";
                     
@@ -68,9 +68,9 @@ public class Set {
                     playSet();
                 } else if (x == p2) {
                     p2Score++;
-                    summary += game.getResult(x) + " | " + p1.nickName + " "
+                    summary += game.getResult(x) + " | " + p1.firstName + " "
                             + p1.blastName + ": " + p1Score + " games ● "
-                            + p2.nickName + " " + p2.blastName + ": " + p2Score
+                            + p2.firstName + " " + p2.blastName + ": " + p2Score
                             + "\n====================================="
                             + "======================================GAME END \n";
 
@@ -86,18 +86,18 @@ public class Set {
 
                 if (x == p1) {
                     p1Score++;
-                    summary += game.getResult(x) + " | " + p1.nickName + " " +
+                    summary += game.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " games ● " + 
-                        p2.nickName + " " + p2.blastName + ": " + p2Score 
+                        p2.firstName + " " + p2.blastName + ": " + p2Score 
                         + "\n====================================="
                         + "======================================GAME END \n";
                     setSummary(summary);
                     playSet();
                 } else if (x == p2) {
                     p2Score++;
-                    summary += game.getResult(x) + " | " + p1.nickName + " " +
+                    summary += game.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " games ● " + 
-                        p2.nickName + " " + p2.blastName + ": " + p2Score 
+                        p2.firstName + " " + p2.blastName + ": " + p2Score 
                         + "\n====================================="
                         + "======================================GAME END \n";
                     setSummary(summary);
@@ -108,7 +108,7 @@ public class Set {
     }
     
     public String getResult(Player winner) {
-        summary += winner.nickName + " " + winner.blastName + 
+        summary += winner.firstName + " " + winner.blastName + 
             " has won the set";   
         return summary;
     }

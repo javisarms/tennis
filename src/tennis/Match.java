@@ -27,7 +27,8 @@ public class Match {
         p1 = x;
         p2 = y;
         ref = r;
-        summary = "MATCH START! " + p1.blastName + " vs. " + p2.blastName 
+        summary = "MATCH START! " + p1.getFirstName() + "" + p1.getLastName() 
+                + " vs. " + p2.getFirstName() + " " + p2.getLastName()
                 + "------------------------------\n";
         playMatch();
     }
@@ -61,9 +62,9 @@ public class Match {
             //If p1 won
             if (x == p1) {
                 p1Score++;      
-                summary += set.getResult(x) + " | " + p1.nickName + " " +
+                summary += set.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " sets ૾ " + 
-                        p2.nickName + " " + p2.blastName + ": " + p2Score 
+                        p2.firstName + " " + p2.blastName + ": " + p2Score 
                         + "\n⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
                         + "⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟ SET END \n";
                 setSummary(summary);
@@ -73,9 +74,9 @@ public class Match {
             //If p2 won
             else if (x == p2) {
                 p2Score++;
-                summary += set.getResult(x) + " | " + p1.nickName + " " +
+                summary += set.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " sets ૾ " + 
-                        p2.nickName + " " + p2.blastName + ": " + p2Score 
+                        p2.firstName + " " + p2.blastName + ": " + p2Score 
                         + "\n⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟"
                         + "⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟⍟ SET END \n";
                 setSummary(summary);
@@ -86,7 +87,7 @@ public class Match {
     
     public void getResult(Player winner) {
         if (count == 0) {
-            summary += winner.nickName + " " + winner.blastName
+            summary += winner.firstName + " " + winner.blastName
                     + " has won the match!\nMATCH END-------------------------";
             setSummary(summary);
         }

@@ -52,9 +52,9 @@ public class Game {
             //If server won
             if (x == ser) {
                 p1Score++;
-                summary += ex.getResult(x) + " | [" + ser.nickName + " " +
+                summary += ex.getSummary() + " | [" + ser.firstName + " " +
                         ser.blastName + ": " + getP1TScore() + "]  [" + 
-                        rec.nickName + " " + rec.blastName + ": " + 
+                        rec.firstName + " " + rec.blastName + ": " + 
                         getP2TScore() + "] \n";
                 setSummary(summary);
                 playGame();
@@ -62,9 +62,9 @@ public class Game {
             //If receiver won
             else if (x == rec) {
                 p2Score++;
-                summary += ex.getResult(x) + " | [" + ser.nickName + " " +
+                summary += ex.getSummary() + " | [" + ser.firstName + " " +
                         ser.blastName + ": " + getP1TScore() + "]  [" + 
-                        rec.nickName + " " + rec.blastName + ": " + 
+                        rec.firstName + " " + rec.blastName + ": " + 
                         getP2TScore() + "] \n";
                 setSummary(summary);
                 playGame();
@@ -129,7 +129,7 @@ public class Game {
     }
     
     public String getResult(Player winner) {
-         summary += winner.nickName + " " + winner.blastName + 
+         summary += winner.firstName + " " + winner.blastName + 
             " has won the game";   
         return summary;
     }
