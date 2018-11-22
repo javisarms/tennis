@@ -19,19 +19,21 @@ public class Set {
     Game game;
     Player winner;
     Player loser;
+    MData data;
     
-    
-    public Set(Player x, Player y, Referee r)
+    public Set(Player x, Player y, Referee r, MData d)
     {
         p1 = x;
         p2 = y;
         ref = r; 
+        data = d;
         playSet();
     }
     
     public Referee playSet()
     {
         playGame();
+        data.addGames();
         
         if (p1Score > 5) {
             setWinner(p1);
@@ -45,7 +47,7 @@ public class Set {
     }
     
     private void playGame() {
-        game = new Game(p1, p2, ref);
+        game = new Game(p1, p2, ref, data);
         if (p1Score <= 5 && p2Score <= 5) {
 
             if (gameCounter % 2 == 0) {

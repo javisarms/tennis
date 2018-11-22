@@ -20,18 +20,22 @@ public class Game {
     String summary = "";
     Player winner;
     Player loser;
+    
+    MData data;
 
-    public Game(Player x, Player y, Referee r) {
+    public Game(Player x, Player y, Referee r, MData d) {
         ser = x;
         rec = y;
         ref = r;
+        data = d;
         playGame();
     }
     
     public Referee playGame() {
         
         exchange();
-        
+        data.addTotalPoints();
+
         if (p1Score > 3) {
             setWinner(ser);
         }
@@ -45,7 +49,7 @@ public class Game {
     
     private void exchange() {
         if (p1Score <= 3 && p2Score <= 3) {
-            ex = new Exchange(ser, rec, ref, 0);
+            ex = new Exchange(ser, rec, ref, data, 0);
             Player x = ex.getWinner(); 
             //returns the winner of the exchange
             

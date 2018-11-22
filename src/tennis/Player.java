@@ -16,6 +16,8 @@ public class Player extends Human {
     String coach;
     int wins = 0;
     int losses = 0;
+    int tournaments;
+    int prizeMoney;
     ArrayList<Integer> firstServices = new ArrayList<Integer>();
     ArrayList<Integer> secondServices = new ArrayList<Integer>();
     
@@ -115,5 +117,20 @@ public class Player extends Human {
     
     public void addSecondService(Integer serve) {
         secondServices.add(serve);
+    }
+    
+    public void addTournaments() {
+        tournaments++;
+    }
+    
+    public void AddPrizeMoney(String w) {
+        if (w == "win") {
+            prizeMoney += 5000;
+        }
+        
+        else {
+            prizeMoney += 2500;
+        }
+        
     }
 }

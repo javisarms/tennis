@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package tennis;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -13,6 +15,7 @@ public class Match {
     Player p1;
     Player p2;
     Referee ref;
+    Spectator[] specs;
     int p1Score = 0;
     int p2Score = 0;
     int setCounter = 0;
@@ -21,20 +24,22 @@ public class Match {
     int count = 0; //Avoids repition of showing the winner
     Player winner;
     Player loser;
+    MData data = new MData();
     
-    public Match(Player x, Player y, Referee r)
+    public Match(Player x, Player y, Referee r, Spectator[] sp)
     {
         p1 = x;
         p2 = y;
         ref = r;
-        summary = "MATCH START! " + p1.getFirstName() + "" + p1.getLastName() 
+        specs = sp;
+        summary = "MATCH START! " + p1.getFirstName() + " " + p1.getLastName() 
                 + " vs. " + p2.getFirstName() + " " + p2.getLastName()
                 + "------------------------------\n";
         playMatch();
     }
     
     public Referee playMatch() {
-        
+        setSeats();
         if (p1Score <= 2 && p2Score <= 2) {
             set();
         }
@@ -56,11 +61,13 @@ public class Match {
     
     private void set() {
         if (p1Score <= 2 && p2Score <= 2) {
-            set = new Set(p1, p2, ref);
+            set = new Set(p1, p2, ref, data);
+            data.addSets();
             Player x = set.getWinner(); //returns the winner of the set
             
             //If p1 won
             if (x == p1) {
+                summary += specReact();
                 p1Score++;      
                 summary += set.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " sets ૾ " + 
@@ -73,6 +80,7 @@ public class Match {
             
             //If p2 won
             else if (x == p2) {
+                summary += specReact();
                 p2Score++;
                 summary += set.getResult(x) + " | " + p1.firstName + " " +
                         p1.blastName + ": " + p1Score + " sets ૾ " + 
@@ -122,8 +130,27 @@ public class Match {
     public Player getLoser() {
         return loser;
     }
+    
+    public int getSpecNum() {
+        return specs.length;
+    }
 
     public String getSummary() {
         return summary;
+    }
+    
+    private void setSeats() {
+        Random r = new Random();
+        for (int i = 0; i < specs.length; i++) {
+            char c = (char) (r.nextInt(26) + 'a');
+            String letter = Character.toString(c);
+            String seat = letter + i;
+            specs[i].setSeat(seat);
+        } 
+    }
+    
+    private String specReact() {
+        int r = ThreadLocalRandom.current().nextInt(0, specs.length);
+        return specs[r].react(p1Score - p2Score);
     }
 }

@@ -82,6 +82,9 @@ public class Generate {
     String[] sponsors = new String[] {"Nike", "Adidas", "Puma", "Rolex", 
         "Uniqlo", "New Balance"};
     
+    String[] colors = new String[] {"Red", "Blue", "Green", "Orange", "Violet",
+    "Yellow", "Indigo"};
+    
     int maleRank = 1;
     int femaleRank = 1;
     
@@ -148,9 +151,9 @@ public class Generate {
     	int r = ThreadLocalRandom.current().nextInt(0, sponsors.length);
         String result = sponsors[r];
         return result;
-	}
+    }
 
-	public String generateHand() {
+    public String generateHand() {
 		String result = "";
 
 		int r = ThreadLocalRandom.current().nextInt(0, 1+1);
@@ -161,6 +164,12 @@ public class Generate {
 			result = "L";
 		}
         
+        return result;
+    }
+    
+    private String generateColor() {
+        int r = ThreadLocalRandom.current().nextInt(0, sponsors.length);
+        String result = colors[r];
         return result;
     }
         
@@ -223,5 +232,22 @@ public class Generate {
         double w = generateMaleWeight();
         
         return new Referee(bln, g, cn, fn, nn, bd, bp, dd, nat, h, w);
+    }
+    
+    public Spectator generateSpectator() {
+        String bln = generateLastName();
+        String g = "M";
+        String cn = generateLastName();
+        String fn = generateMaleFirstName();
+        String nn = generateMaleFirstName();
+        String bd = generateBirthDate();
+        String bp = generateBirthPlace();
+        String dd = "";
+        String nat = generateNationality();
+        double h = generateHeight();
+        double w = generateMaleWeight();
+        String col = generateColor();
+
+        return new Spectator(bln, g, cn, fn, nn, bd, bp, dd, nat, h, w, col);
     }
 }

@@ -25,20 +25,23 @@ public class Tennis {
         Player[] males = new Player[128];
         Player[] females = new Player[128];
         Referee[] refs = new Referee[64];
+        Spectator[] specs = new Spectator[100];
         for (int i = 0; i < 128; i++) {
             males[i] = g.generateMalePlayer();
             females[i] = g.generateFemalePlayer();
         }
-        
         for (int i = 0; i < 12; i++) {
             refs[i] = g.generateReferee();
+        }
+        for (int i = 0; i < 100; i++) {
+            specs[i] = g.generateSpectator();
         }
         
         //Match game = new Match(males[0],males[1],refs[0]);
         //System.out.println(game.getSummary());
         
         Operations main = new Operations(males,females,refs);
-//        Game trial = new Game(males[0],males[64],refs[0]);
+//        Match trial = new Match(males[0],males[64],refs[0], specs);
 //        System.out.println(trial.getSummary());
         //Menu
         Scanner input = new Scanner(System.in);

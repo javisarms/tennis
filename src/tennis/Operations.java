@@ -19,6 +19,7 @@ public class Operations {
     Player[] males;
     Player[] females;
     Referee[] refs;
+    Spectator[] specs;
     ArrayList<Tournament> currentTournaments = new ArrayList<Tournament>();
     ArrayList<Tournament> pastTournaments = new ArrayList<Tournament>();
     Scanner input = new Scanner(System.in);
@@ -141,10 +142,17 @@ public class Operations {
         Tournament t = pastTournaments.get(i-1);
         System.out.printf("\n%s %s", t.getYear(), t.name);
         System.out.printf("\n%s - %s", t.place, t.surface);
-        System.out.printf("\nFinals: %s def. %s",
+        System.out.printf("\nMen's Finals: %s def. %s",
         t.data.getMaleWinner()[0].getWinner().blastName, 
         t.data.getMaleWinner()[0].getLoser().blastName );
-        System.out.println("--------------------------------------\n");
+        System.out.printf("\nWomen's Finals: %s def. %s",
+                t.data.getFemaleWinner()[0].getWinner().blastName,
+                t.data.getFemaleWinner()[0].getLoser().blastName);
+        System.out.printf("\nAverage attendance: %s", t.data.getAvgSpec());
+        System.out.printf("\nTotal balls used: %s", t.data.getBalls());
+        System.out.printf("\nTotal hats sold: %s", t.data.getHats());
+        System.out.printf("\nTotal drinks sold: %s", t.data.getBottles());
+        System.out.println("\n--------------------------------------");
         t.viewResults();
         
     }
@@ -245,6 +253,8 @@ public class Operations {
     private void viewPlayer(int rank, Player[] players) {
         Player player = players[rank-1];
         System.out.printf("\nName: %s %s", player.getFirstName(), player.getLastName());
+        System.out.printf("\nPrize money: USD %s", player.prizeMoney);
+        System.out.printf("\nTournaments: %s", player.tournaments);
         System.out.printf("\nRank: %s | Wins: %s | Losses: %s", rank
         , player.getWins(), player.getLosses());
         System.out.printf("\nNickname: %s", player.getNickName());

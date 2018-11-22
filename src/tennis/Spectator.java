@@ -23,11 +23,11 @@ public class Spectator extends Human {
         if (g == "M") {
             item = "shirt";
             ident = "Spectator " + firstName + " " + blastName + " wearing a "
-                    + color + " " + item + " ";
+                    + color + " " + item + " from seat " + seat + " ";
         } else if (g == "F") {
             item = "glasses";
             ident = "Spectator " + firstName + " " + blastName + " wearing "
-                    + color + " " + item + " ";
+                    + color + " " + item + " from seat " + seat + " ";
         }
     }
     
@@ -37,11 +37,11 @@ public class Spectator extends Human {
         if (scoreDiff == 2) {
             int r = ThreadLocalRandom.current().nextInt(0, 10 + 1);
             if (r > 9) {
-                reaction = ident + "starts sleeping at the match.";
+                reaction = "~~" + ident + "starts sleeping at the match.~~\n";
             }
             
             else {
-                reaction = ident + "boos at the match.";
+                reaction = "~~" + ident + "boos at the match.~~\n";
             }
             
         }
@@ -49,12 +49,16 @@ public class Spectator extends Human {
         else {
             int r = ThreadLocalRandom.current().nextInt(0, 10 + 1);
             if (r > 7) {
-                reaction = ident + "shouts at the match.";
+                reaction = "~~" + ident + "shouts at the match.~~\n";
             } else {
-                reaction = ident + "applauds at the match.";
+                reaction = "~~" + ident + "applauds at the match.~~\n";
             }
         }
         
         return reaction;
+    }
+    
+    public void setSeat(String s) {
+        seat = s;
     }
 }

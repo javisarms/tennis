@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package tennis;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -26,6 +27,13 @@ public class TData {
     Match[] wsixteen; //16
     Match[] wquart; //quarters
     Match[] wsemi; //semis
+    
+    //Statistics
+    int totalSpec;
+    int totalMatches;
+    int totalBalls = ThreadLocalRandom.current().nextInt(68000, 72000);
+    int totalHats = ThreadLocalRandom.current().nextInt(20000, 45000);
+    int totalBottles = ThreadLocalRandom.current().nextInt(100000, 200000);
     
     public void setWinners(Match[] results, Match[] wresults, int tp){
         switch(tp) {
@@ -114,6 +122,32 @@ public class TData {
 
     public Match[] getFemaleWinner() {
         return wfinals;
+    }
+    
+    //Statistic Related Methods
+    
+    public int getAvgSpec() {
+        return totalSpec/totalMatches;
+    }
+    
+    public int getHats() {
+        return totalHats;
+    }
+    
+    public int getBalls() {
+        return totalBalls;
+    }
+    
+    public int getBottles() {
+        return totalBottles;
+    }
+    
+    public void addSpec(int s) {
+        totalSpec += s;
+    }
+    
+    public void addMatch() {
+        totalMatches ++;
     }
     
 }

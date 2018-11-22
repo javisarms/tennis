@@ -21,12 +21,14 @@ public class Exchange {
     Player winner;
     Player loser;
     int faultCount;
+    MData data;
     
-    public Exchange(Player x, Player y, Referee r, int i) {
+    public Exchange(Player x, Player y, Referee r, MData d, int i) {
         ser = x;
         rec = y;
         ref = r;
         faultCount = i;
+        data = d;
         service();
     }
     
@@ -39,11 +41,13 @@ public class Exchange {
         if (faultCount == 0) {
             int speed = ThreadLocalRandom.current().nextInt(160, 180);
             ser.addFirstService(speed);
+            data.addFirstServe(speed);
         }
         
         else {
             int speed = ThreadLocalRandom.current().nextInt(140, 165);
             ser.addSecondService(speed);
+            data.addSecondServe(speed);
         }
         
         //Chance of fault
@@ -57,6 +61,7 @@ public class Exchange {
                         + rec.blastName + " has won the exchange";
                 setSummary(result);
                 setWinner(rec);
+                data.addDoubleFaults();
             }
         }
         
@@ -65,6 +70,12 @@ public class Exchange {
                     + " has won the exchange";
             setSummary(result);
             setWinner(ser);
+            
+            //So that not every point won by the server is an ace (rarer)
+            int r = ThreadLocalRandom.current().nextInt(0, 10);
+            if (r > 8) {
+                data.addAces();
+            }
         }
         
         else {

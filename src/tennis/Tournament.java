@@ -28,7 +28,8 @@ public class Tournament {
     int tourYear;
 
     
-    public Tournament(int choice, Player[] m, Player[] w, Referee[] r, int year) {
+    public Tournament(int choice, Player[] m, Player[] w, Referee[] r, int year) 
+    {
         males = m;
         females = w;
         refs = r;
@@ -112,10 +113,18 @@ public class Tournament {
             // generates a random number from 0-12 to pick a referee
             Player p1 = halfOne[i];
             Player p2 = halfTwo[i];
-            Match result = new Match(p1, p2, refs[r]);
+            p1.addTournaments();
+            p2.addTournaments();
+            Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
+            result.getWinner().AddPrizeMoney("win");
             result.getLoser().addLoss();
+            result.getLoser().AddPrizeMoney("lose");
             results[i] = result;
+            
+            //Add match stats to tournament stats
+            data.addMatch();
+            data.addSpec(result.getSpecNum());
         }
         
         //females
@@ -134,10 +143,18 @@ public class Tournament {
             // generates a random number from 0-12 to pick a referee
             Player p1 = whalfOne[i];
             Player p2 = whalfTwo[i];
-            Match result = new Match(p1, p2, refs[r]);
+            p1.addTournaments();
+            p2.addTournaments();
+            Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
+            result.getWinner().AddPrizeMoney("win");
             result.getLoser().addLoss();
+            result.getLoser().AddPrizeMoney("lose");
             wresults[i] = result;
+            
+            //Add match stats to tournament stats
+            data.addMatch();
+            data.addSpec(result.getSpecNum());
         }
         
         data.setWinners(results, wresults, tournamentProgress);
@@ -161,10 +178,16 @@ public class Tournament {
             // generates a random number from 0-12 to pick a referee
             Player p1 = halfOne[i];
             Player p2 = halfTwo[i];
-            Match result = new Match(p1, p2, refs[r]);
+            Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
+            result.getWinner().AddPrizeMoney("win");
             result.getLoser().addLoss();
+            result.getLoser().AddPrizeMoney("lose");
             results[i] = result;
+            
+            //Add match stats to tournament stats
+            data.addMatch();
+            data.addSpec(result.getSpecNum());
         }
         
         //females
@@ -182,14 +205,54 @@ public class Tournament {
             // generates a random number from 0-12 to pick a referee
             Player p1 = whalfOne[i];
             Player p2 = whalfTwo[i];
-            Match result = new Match(p1, p2, refs[r]);
+            Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
+            result.getWinner().AddPrizeMoney("win");
             result.getLoser().addLoss();
+            result.getLoser().AddPrizeMoney("lose");
             wresults[i] = result;
+
+            //Add match stats to tournament stats
+            data.addMatch();
+            data.addSpec(result.getSpecNum());
         }
         
         data.setWinners(results, wresults, tournamentProgress);
         tournamentProgress++;
+    }
+    
+    private Spectator[] generateSpectators() {
+        int r = 0;
+        Generate g = new Generate();
+        switch (tournamentProgress) {
+            case 0:
+                r = ThreadLocalRandom.current().nextInt(100, 200);
+                break;
+            case 1:
+                r = ThreadLocalRandom.current().nextInt(200, 400);
+                break;
+            case 2:
+                r = ThreadLocalRandom.current().nextInt(400, 800);
+                break;
+            case 3:
+                r = ThreadLocalRandom.current().nextInt(800, 1600);
+                break;
+            case 4:
+                r = ThreadLocalRandom.current().nextInt(1600, 3200);
+                break;
+            case 5:
+                r = ThreadLocalRandom.current().nextInt(3200, 6400);
+                break;
+            case 6:
+                r = ThreadLocalRandom.current().nextInt(6400, 12800);
+                break;
+        }
+        
+        Spectator[] sp = new Spectator[r];
+        for (int i = 0; i < r; i++) {
+            sp[i] = g.generateSpectator();
+        }
+        return sp;
     }
     
     //Getters
@@ -504,7 +567,23 @@ public class Tournament {
     }
     
     private void matchSum(int i, Match[] matches) {
-        System.out.println(matches[i-1].getSummary());
+        Match m = matches[i - 1];
+        System.out.println("\n=======MATCH SUMMARY=======");
+        System.out.printf("Total points: %s\n", m.data.totalPoints);
+        System.out.printf("Total games: %s\n", m.data.totalGames);
+        System.out.printf("Total sets: %s\n", m.data.totalSets);
+        System.out.printf("Total first serves: %s\n", m.data.totalFirstServes);
+        System.out.printf("Average first serve speed: %s kph\n", 
+                m.data.getAvgFirst());
+        System.out.printf("Total second serves: %s\n", m.data.totalSecondServes);
+        System.out.printf("Average second serve speed: %s kph\n",
+                m.data.getAvgSecond());
+        System.out.printf("Total aces: %s\n", m.data.totalAces);
+        System.out.printf("Total double faults: %s\n", m.data.totalDoubleFaults);
+        System.out.printf("Attendance: %s\n\n", m.getSpecNum());
+
+        System.out.println("MATCH LOG");
+        System.out.println(m.getSummary());
         viewResults();
     }
     
@@ -544,4 +623,13 @@ public class Tournament {
     public int getProg() {
         return tournamentProgress;
     }
+    
+    private void updateRankings() {
+        
+    }
+    
+    static float Probability(float rating1,float rating2) {
+        return 1.0f * 1.0f / (1 + 1.0f * (float) (Math.pow(10, 1.0f * 
+                (rating1 - rating2) / 400)));
+    } 
 }
