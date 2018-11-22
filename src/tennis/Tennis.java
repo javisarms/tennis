@@ -8,7 +8,7 @@ package tennis;
 import java.util.Scanner;
 
 /**
- *
+ * The main method of the project
  * @author javiersarmiento
  */
 public class Tennis {
@@ -16,11 +16,9 @@ public class Tennis {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        //TODO
-        //Generate random players, referees, and spectators
+    public static void main(String[] args) {        
+        //Generate random players, referees, and spectators to be used in the
+        //program
         Generate g = new Generate();
         Player[] males = new Player[128];
         Player[] females = new Player[128];
@@ -37,13 +35,10 @@ public class Tennis {
             specs[i] = g.generateSpectator();
         }
         
-        //Match game = new Match(males[0],males[1],refs[0]);
-        //System.out.println(game.getSummary());
         
         Operations main = new Operations(males,females,refs);
-//        Match trial = new Match(males[0],males[64],refs[0], specs);
-//        System.out.println(trial.getSummary());
-        //Menu
+        
+        //Main Menu
         Scanner input = new Scanner(System.in);
         boolean mainLoop = true;
         String choice;

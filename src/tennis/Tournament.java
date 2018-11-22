@@ -117,9 +117,9 @@ public class Tournament {
             p2.addTournaments();
             Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
-            result.getWinner().AddPrizeMoney("win");
+            result.getWinner().addPrizeMoney("win");
             result.getLoser().addLoss();
-            result.getLoser().AddPrizeMoney("lose");
+            result.getLoser().addPrizeMoney("lose");
             results[i] = result;
             
             //Add match stats to tournament stats
@@ -147,9 +147,9 @@ public class Tournament {
             p2.addTournaments();
             Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
-            result.getWinner().AddPrizeMoney("win");
+            result.getWinner().addPrizeMoney("win");
             result.getLoser().addLoss();
-            result.getLoser().AddPrizeMoney("lose");
+            result.getLoser().addPrizeMoney("lose");
             wresults[i] = result;
             
             //Add match stats to tournament stats
@@ -180,9 +180,9 @@ public class Tournament {
             Player p2 = halfTwo[i];
             Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
-            result.getWinner().AddPrizeMoney("win");
+            result.getWinner().addPrizeMoney("win");
             result.getLoser().addLoss();
-            result.getLoser().AddPrizeMoney("lose");
+            result.getLoser().addPrizeMoney("lose");
             results[i] = result;
             
             //Add match stats to tournament stats
@@ -207,9 +207,9 @@ public class Tournament {
             Player p2 = whalfTwo[i];
             Match result = new Match(p1, p2, refs[r], generateSpectators());
             result.getWinner().addWin();
-            result.getWinner().AddPrizeMoney("win");
+            result.getWinner().addPrizeMoney("win");
             result.getLoser().addLoss();
-            result.getLoser().AddPrizeMoney("lose");
+            result.getLoser().addPrizeMoney("lose");
             wresults[i] = result;
 
             //Add match stats to tournament stats
@@ -624,11 +624,35 @@ public class Tournament {
         return tournamentProgress;
     }
     
-    private void updateRankings() {
+    private void updateRankings(Player p1, Player p2, int K, boolean s) {
+        int p1Rank = p1.getRank();
+        int p2Rank = p2.getRank();
         
+        //prob. of p1 winning
+        float p1Prob = Probability(p2Rank, p1Rank);
+        //prob. of p2 winning
+        float p2Prob = Probability(p1Rank, p2Rank);
+        
+        //if p1 won
+        if (s == true) {
+            int newp1Rank = (int) (p1Rank + K * (1 - p1Prob));
+            int newp2Rank = (int) (p2Rank + K * (0 - p2Prob));
+            p1.setRanking(newp1Rank);
+            p2.setRanking(newp2Rank);
+            
+        }
+        
+        //if p2 won
+        else {
+            int newp1Rank = (int) (p1Rank + K * (0 - p1Prob));
+            int newp2Rank = (int) (p2Rank + K * (1 - p2Prob));
+            p1.setRanking(newp1Rank);
+            p2.setRanking(newp2Rank);
+        }
+
     }
     
-    static float Probability(float rating1,float rating2) {
+    static float Probability(int rating1, int rating2) {
         return 1.0f * 1.0f / (1 + 1.0f * (float) (Math.pow(10, 1.0f * 
                 (rating1 - rating2) / 400)));
     } 

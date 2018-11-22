@@ -123,7 +123,7 @@ public class Player extends Human {
         tournaments++;
     }
     
-    public void AddPrizeMoney(String w) {
+    public void addPrizeMoney(String w) {
         if (w == "win") {
             prizeMoney += 5000;
         }

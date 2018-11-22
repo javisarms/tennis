@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * This class helps the main method making the code neater for the coders.
+ * It is in charge of all the operations of the program.
  * @author javiersarmiento
  */
 public class Operations {
-    //This class does all the operations so that the main method isn't as
-    //cluttered
     
     int year = 2018;
     Player[] males;
@@ -24,6 +23,12 @@ public class Operations {
     ArrayList<Tournament> pastTournaments = new ArrayList<Tournament>();
     Scanner input = new Scanner(System.in);
     
+    /**
+     * Class Constructor.
+     * @param m the array of male players to be used in the program
+     * @param f the array of female players to be used in the program
+     * @param r the array of referees to be used in the program
+     */
     public Operations(Player[] m, Player[] f, Referee[] r) {
         males = m;
         females = f;
@@ -35,6 +40,11 @@ public class Operations {
     //TOURNAMENTS
     //=========================================================================
     
+    /**
+     * Acts as the main menu of the tournament mode wherein the user can choose
+     * multiple options regarding all things regarding a tournament. This public
+     * method is being used in the main method.
+     */
     public void tourMode() {
         //If the year's tours are done, make for the new year
         if (currentTournaments.isEmpty()) {
@@ -69,7 +79,12 @@ public class Operations {
         }
     }
     
-    //Displays data about the current tournament in play
+    /**
+     * This chooses the current tournament being played and shows all its
+     * necessary info. It also acts as the menu for the tournament, leaving the
+     * user to choose between playing or viewing the results of the tournament.
+     */
+    
     private void currTournament() {
         //Select the tournament
         Tournament t = null;
@@ -110,7 +125,11 @@ public class Operations {
         }
     }
     
-    //VIEW FUTURE TOURNAMENTS FOR THE YEAR  
+    /**
+     * This shows the upcoming tournaments for the remainder of the year.
+     * There is a maximum of 4 tournaments per year (Grand Slam tournaments),
+     * and of course, a minimum of one.
+     */ 
     private void viewFutureTournaments() {
         System.out.println("");
         for (int i = 0; i < currentTournaments.size(); i++) {
@@ -121,7 +140,11 @@ public class Operations {
         }
     }
     
-    //VIEW PAST TOURNAMENTS AND ITS SUMMARY/RESULTS 
+    /**
+     * Shows all the completed tournaments so far in the program. The user
+     * can then opt to view more details about a particular tournament.
+     */
+    
     private void viewPastTournaments() {
         System.out.println("");
         for (int i = 0; i < pastTournaments.size(); i++) {
@@ -138,6 +161,11 @@ public class Operations {
         }
     }
     
+    /**
+     * This shows the summary and details of the past tournament chosen in
+     * the <code>viewPastTournaments</code> method.
+     * @param i the number of the tournament chosen, to be used to get the index
+     */
     private void viewPastTournament(int i) {
         Tournament t = pastTournaments.get(i-1);
         System.out.printf("\n%s %s", t.getYear(), t.name);
@@ -157,7 +185,10 @@ public class Operations {
         
     }
     
-    //generates tournaments for the year
+    /**
+     * Once a year is completed, this method generates all the four Grand Slam
+     * events for the playing year.
+     */
     private void generateCurrentTournaments() {
         Tournament a = new Tournament(1, males, females, refs, year);
         Tournament b = new Tournament(2, males, females, refs, year);
@@ -174,6 +205,11 @@ public class Operations {
     //VIEWING PLAYERS
     //=========================================================================
     
+    /**
+     * This public method shows all the players in the program. The user can
+     * choose between viewing the male or female players. The user can then
+     * choose a specific player to view his/her personal details/statistics.
+     */
     public void viewPlayers() {
         System.out.println("\nPLAYERS");
         System.out.println("1 - Males");
@@ -225,7 +261,10 @@ public class Operations {
         }
     }
     
-    //Insertion sort method
+    /**
+     * The method simply makes sure that the players' arrays are arranged by
+     * rank using an insertion sort algorithm.
+     */
     private void rankPlayers() {
         Player temp;
         for (int i = 1; i < males.length; i++) {
@@ -250,6 +289,12 @@ public class Operations {
         }
     }
     
+    /**
+     * Shows the details of a particular player chosen from the <code>
+     * viewPlayers</code> method.
+     * @param rank the chosen rank of the player the user wishes to use
+     * @param players the array of players, either males or females
+     */
     private void viewPlayer(int rank, Player[] players) {
         Player player = players[rank-1];
         System.out.printf("\nName: %s %s", player.getFirstName(), player.getLastName());
