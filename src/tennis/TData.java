@@ -10,6 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * This class stores the data of a tournament. The 
  * rounds' winners are stored, as well as other tournament
  * statistics such as total matches, balls, hats, bottles, etc.
+ * This also allows for a cleaner code as the tournament class
+ * already has plenty of lines.
  * @author javiersarmiento
  */
 public class TData {
