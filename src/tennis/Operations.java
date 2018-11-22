@@ -10,10 +10,9 @@ import java.util.Scanner;
 /**
  * This class helps the main method making the code neater for the coders.
  * It is in charge of all the operations of the program.
- * @author javiersarmiento
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Operations {
-    
     int year = 2018;
     Player[] males;
     Player[] females;

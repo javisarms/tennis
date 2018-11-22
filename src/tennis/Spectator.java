@@ -6,7 +6,8 @@
 package tennis;
 import java.util.concurrent.ThreadLocalRandom;
 /**
- *
+ * This class is a daughter class of the <code>Human</code> class a spectator.
+ * It includes additional information like seat number, item, and color of item.
  * @author javiersarmiento
  */
 public class Spectator extends Human {
@@ -14,7 +15,22 @@ public class Spectator extends Human {
     String item;
     String color;
     String ident;
-    
+
+    /**
+     * Constructor class. The item is assigned here based on one's gender.
+     * @param bln the given last name
+     * @param g the gender, either "M" or "F"
+     * @param cn the current name for female players
+     * @param fn the given first name
+     * @param nn the given nickname
+     * @param bd the birth date
+     * @param bp the birth place
+     * @param dd the death date
+     * @param nat the nationality
+     * @param h the height
+     * @param w the weight
+     * @param col the given color if the item
+     */
     public Spectator(String bln, String g, String cn, String fn, String nn, 
             String bd, String bp, String dd, String nat, double h, double w, 
             String col) {
@@ -22,15 +38,19 @@ public class Spectator extends Human {
         color = col;
         if (g == "M") {
             item = "shirt";
-            ident = "Spectator " + firstName + " " + blastName + " wearing a "
-                    + color + " " + item + " from seat " + seat + " ";
         } else if (g == "F") {
             item = "glasses";
-            ident = "Spectator " + firstName + " " + blastName + " wearing "
-                    + color + " " + item + " from seat " + seat + " ";
         }
     }
     
+    /**
+     * This method generates a reaction from the spectator based on the score
+     * of the match. If the match is one-sided the spectator can boo or sleep
+     * (this is rare as it happens only around less than 20%). If the match is
+     * close, the spectator can applaud or shout, with a higher tendency to applaud.
+     * @param scoreDiff the difference of set scores in the current match
+     * @return String of the reaction of the fan
+     */
     public String react(int scoreDiff) {
         String reaction = "";
         
@@ -58,7 +78,20 @@ public class Spectator extends Human {
         return reaction;
     }
     
+    /**
+     * The method sets the seat number of the fan. It also sets
+     * the <code>ident</code> field, which summarizes the spectator
+     * information, for ease of use in the <code>react</code> method.
+     * @param s the seat number
+     */
     public void setSeat(String s) {
         seat = s;
+        if (gender == "M") {
+            ident = "Spectator " + firstName + " " + blastName + " wearing a "
+                    + color + " " + item + " from seat " + seat + " ";
+        } else if (gender == "F") {
+            ident = "Spectator " + firstName + " " + blastName + " wearing "
+                    + color + " " + item + " from seat " + seat + " ";
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
+ * This class defines a tournament and has methods to play and view its results.
  * @author javiersarmiento
  */
 public class Tournament {
@@ -27,7 +27,15 @@ public class Tournament {
     //Keep track of the year of tournament
     int tourYear;
 
-    
+    /**
+     * Class constructor.
+     * @param choice indicates which tournament is to be played. (1 for Austalian, 
+     * 2 for French, etc.)
+     * @param m the array of male players
+     * @param w the array of female players
+     * @param r the array of referees
+     * @param year the current year
+     */
     public Tournament(int choice, Player[] m, Player[] w, Referee[] r, int year) 
     {
         males = m;
@@ -63,6 +71,10 @@ public class Tournament {
     //PLAYING THE TOURNAMENT
     //=========================================================================
     
+    /**
+     * Plays the current round of the tournament based on the
+     * <code>tournamentProgress</code> field.
+     */
     public void playTournament() {
         switch(tournamentProgress) {
             case 0:
@@ -95,9 +107,14 @@ public class Tournament {
         }
     }
     
-    //MALES
+    /**
+     * This method plays the first round of the tournament. In comparison
+     * to the other rounds, this method has no parameter as it refers directly
+     * to the male and female player arrays. It also adds statistics for the 
+     * tournament and players involved.
+     */
     public void play128() {
-        //males
+        //MALES
         Player[] matches = males;
         Player[] halfOne = new Player[64];
         Player[] halfTwo = new Player[64];
@@ -127,7 +144,7 @@ public class Tournament {
             data.addSpec(result.getSpecNum());
         }
         
-        //females
+        //FEMALES
         Player[] wmatches = females;
         Player[] whalfOne = new Player[64];
         Player[] whalfTwo = new Player[64];
@@ -161,13 +178,19 @@ public class Tournament {
         tournamentProgress++;
     }
     
+    /**
+     * Plays a round of the tournament based on a previous round's winners.
+     * It also adds statistics for the tournament and players involved.
+     * @param winners the array of the previous round's male winners
+     * @param woWinners the array of the previous round's female winners
+     */
     public void playRound(Match[] winners, Match[] woWinners) {
-        //males
+        //MALES
         int resLength = winners.length/2;
         Match[] results = new Match[resLength];
         
-        Player[] halfOne = new Player[64];
-        Player[] halfTwo = new Player[64];
+        Player[] halfOne = new Player[resLength];
+        Player[] halfTwo = new Player[resLength];
         for (int i = 0; i < resLength; i++) {
             halfOne[i] = winners[i].getWinner();
             halfTwo[i] = winners[resLength+i].getWinner();
@@ -193,8 +216,8 @@ public class Tournament {
         //females
         Match[] wresults = new Match[resLength];
 
-        Player[] whalfOne = new Player[64];
-        Player[] whalfTwo = new Player[64];
+        Player[] whalfOne = new Player[resLength];
+        Player[] whalfTwo = new Player[resLength];
         for (int i = 0; i < resLength; i++) {
             whalfOne[i] = woWinners[i].getWinner();
             whalfTwo[i] = woWinners[resLength + i].getWinner();
@@ -221,6 +244,12 @@ public class Tournament {
         tournamentProgress++;
     }
     
+    /**
+     * Generates spectator with an amount depending on the stage
+     * of the tournament. The deeper the tournament, the more fans
+     * attend the game.
+     * @return Spectator[] an array of spectators
+     */
     private Spectator[] generateSpectators() {
         int r = 0;
         Generate g = new Generate();
@@ -256,6 +285,10 @@ public class Tournament {
     }
     
     //Getters
+    /**
+     * Getter for the tournament year
+     * @return int of the year
+     */
     public int getYear() {
         return tourYear;
     }
@@ -263,6 +296,12 @@ public class Tournament {
     //=========================================================================
     //VIEWING RESULTS
     //=========================================================================
+
+    /**
+     * Gives the user a menu of the results of the tournament divided into the
+     * rounds of the tournament. It adjusts based on the tournament progress
+     * hence the numerous switch cases.
+     */
     public void viewResults() {
         resultsMenu();
         switch (tournamentProgress) {
@@ -453,6 +492,10 @@ public class Tournament {
         }
     }
     
+    /**
+     * Provides the text of the menu described in the <code>
+     * viewResults</code> again depending on the tournament progress.
+     */
     private void resultsMenu() {
         System.out.println("");
         switch(tournamentProgress) {
@@ -518,7 +561,15 @@ public class Tournament {
                 break;
         }
     }
-        
+     
+    /**
+     * Allows the user to view the results of a particular round.
+     * The user can choose between viewing the mens' or womens'
+     * results. The user can then opt to view additional details of
+     * a particular match.
+     * @param matches array of the mens' matches
+     * @param wmatches array of the womens' matches
+     */
     private void viewRound(Match[] matches, Match[] wmatches) {
         System.out.println("VIEW RESULTS");
         System.out.println("1 - Males");
@@ -566,6 +617,12 @@ public class Tournament {
         }
     }
     
+    /**
+     * Shows a particular match's summary and statistics.
+     * It also shows the match log.
+     * @param i the match number to be used to get its index
+     * @param matches the array of results chosen
+     */
     private void matchSum(int i, Match[] matches) {
         Match m = matches[i - 1];
         System.out.println("\n=======MATCH SUMMARY=======");
@@ -587,6 +644,11 @@ public class Tournament {
         viewResults();
     }
     
+    /**
+     * Generates a String based on the tournament progress to
+     * indicate the current round.
+     * @return String of the current stage of the tournament
+     */
     public String getStatus() {
         String prog = "";
         
@@ -620,40 +682,11 @@ public class Tournament {
         return prog;
     }
     
+    /**
+     * Getter for the tournament progress
+     * @return int of the tournament progress
+     */
     public int getProg() {
         return tournamentProgress;
     }
-    
-    private void updateRankings(Player p1, Player p2, int K, boolean s) {
-        int p1Rank = p1.getRank();
-        int p2Rank = p2.getRank();
-        
-        //prob. of p1 winning
-        float p1Prob = Probability(p2Rank, p1Rank);
-        //prob. of p2 winning
-        float p2Prob = Probability(p1Rank, p2Rank);
-        
-        //if p1 won
-        if (s == true) {
-            int newp1Rank = (int) (p1Rank + K * (1 - p1Prob));
-            int newp2Rank = (int) (p2Rank + K * (0 - p2Prob));
-            p1.setRanking(newp1Rank);
-            p2.setRanking(newp2Rank);
-            
-        }
-        
-        //if p2 won
-        else {
-            int newp1Rank = (int) (p1Rank + K * (0 - p1Prob));
-            int newp2Rank = (int) (p2Rank + K * (1 - p2Prob));
-            p1.setRanking(newp1Rank);
-            p2.setRanking(newp2Rank);
-        }
-
-    }
-    
-    static float Probability(int rating1, int rating2) {
-        return 1.0f * 1.0f / (1 + 1.0f * (float) (Math.pow(10, 1.0f * 
-                (rating1 - rating2) / 400)));
-    } 
 }
