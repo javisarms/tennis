@@ -6,21 +6,60 @@
 package tennis;
 
 /**
- *
- * @author javiersarmiento
+ * This class plays out a set between two players.
+ * It also includes several getters and setters such as getting and
+ * setting the winner and loser of the set.
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Set {
+    /**
+     * the players of the set
+     */
     Player p1, p2;
-    int p1Score = 0;
-    int p2Score = 0;
-    int gameCounter = 0;
-    String summary = "";
+    /**
+     * the referee of the set
+     */
     Referee ref;
+    /**
+     * the score of p1
+     */
+    int p1Score = 0;
+    /**
+     * the score of p2
+     */
+    int p2Score = 0;
+    /**
+     * counts how many games have been played
+     */
+    int gameCounter = 0;
+    /**
+     * a game
+     */
     Game game;
+    /**
+     * the summary of the set
+     */
+    String summary = "";
+    /**
+     * the winner of the set
+     */
     Player winner;
+    /**
+     * the loser of the set
+     */
     Player loser;
+    /**
+     * the match data
+     */
     MData data;
     
+    /**
+     * Class Constructor.
+     * @param  x The first player in the set.
+     * @param  y The second player in the set.
+     * @param  r The referee in the set.
+     * @param  d The match data.
+     */
     public Set(Player x, Player y, Referee r, MData d)
     {
         p1 = x;
@@ -30,7 +69,10 @@ public class Set {
         playSet();
     }
     
-    public Referee playSet()
+    /**
+     * This class plays the entire set and determines which player won.
+     */
+    public void playSet()
     {
         playGame();
         data.addGames();
@@ -41,11 +83,14 @@ public class Set {
         
         else if (p2Score > 5) {
             setWinner(p2);
-        }
-                
-        return ref;
+        }                
     }
     
+    /**
+     * This method plays a game between two players until a winner is
+     * determined. After a game is finished it goes back to the <code>
+     * playSet</code> method.
+     */
     private void playGame() {
         game = new Game(p1, p2, ref, data);
         if (p1Score <= 5 && p2Score <= 5) {
@@ -109,32 +154,63 @@ public class Set {
         }
     }
     
+    /**
+     * This method gets the winner of the set and returns it
+     * as a String.
+     * @param  winner The player who won the game.
+     * @return String which displays the winning player.
+     */
     public String getResult(Player winner) {
         summary += winner.firstName + " " + winner.blastName + 
             " has won the set";   
         return summary;
     }
     
+    /**
+     * This method sets which player won the set.
+     * @param win The player that won the set. 
+     */
     private void setWinner(Player win) {
         winner = win;
     }
 
+    /**
+     * This method sets which player lost the set.
+     * @param lose The player that lost the set. 
+     */
     private void setLoser(Player lose) {
         loser = lose;
     }
 
+    /**
+     * This method sets which String shall be displayed as the summary
+     * of the set.
+     * @param line The String that will be displayed as the summary. 
+     */
     private void setSummary(String line) {
         summary = line;
     }
 
+    /**
+     * This method returns which player won the set. 
+     * @return Player the winner.
+     */
     public Player getWinner() {
         return winner;
     }
 
+    /**
+     * This method returns which player lost the set. 
+     * @return Player the loser.
+     */
     public Player getLoser() {
         return loser;
     }
 
+    /**
+     * This method returns the summary of the entire set. 
+     * @return String of the summary of the set.
+     */
     public String getSummary() {
         return summary;
     }

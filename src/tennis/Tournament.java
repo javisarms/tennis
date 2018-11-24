@@ -9,22 +9,48 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This class defines a tournament and has methods to play and view its results.
- * @author javiersarmiento
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Tournament {
     Scanner input = new Scanner(System.in);
+    /**
+     * the tournament data
+     */
     TData data = new TData();
+    /**
+     * the tournament name
+     */
     String name;
+    /**
+     * the tournament place
+     */
     String place;
+    /**
+     * the tournament surface
+     */
     String surface;
+    /**
+     * the tournament's male players
+     */
     Player[] males;
+    /**
+     * the tournament's female players
+     */
     Player[] females;
+    /**
+     * the tournament's referees
+     */
     Referee[] refs;
     
-    int tournamentProgress = 0; //indicates which stage the tournament is in
-    //0 = 128, 1 = 64, 2 = 32, 3 = 16, 4 = 8, 5 = 4, 6 = 2, 7 = finished
+    /**
+     * the tournament's progress. indicates which stage the tournament is in
+     * 0 = 128, 1 = 64, 2 = 32, 3 = 16, 4 = 8, 5 = 4, 6 = 2, 7 = finished
+     */
+    int tournamentProgress = 0;
     
-    //Keep track of the year of tournament
+    /**
+     * the year
+     */
     int tourYear;
 
     /**

@@ -7,7 +7,7 @@ package tennis;
 
 /**
  * This class is a daughter class of the <code>Human</code> class for referees.
- * @author javiersarmiento
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Referee extends Human {
     

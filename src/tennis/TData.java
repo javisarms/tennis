@@ -12,31 +12,88 @@ import java.util.concurrent.ThreadLocalRandom;
  * statistics such as total matches, balls, hats, bottles, etc.
  * This also allows for a cleaner code as the tournament class
  * already has plenty of lines.
- * @author javiersarmiento
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class TData {
+    /**
+     * the results of the mens finals
+     */
     Match[] finals = new Match[1];
+    /**
+     * the results of the mens 128
+     */
     Match[] hunna = new Match[64];
-    Match[] sixts; //64
-    Match[] thirt; //32
-    Match[] sixteen; //16
-    Match[] quart; //quarters
-    Match[] semi; //semis
+    /**
+     * the results of the mens 64
+     */
+    Match[] sixts;
+    /**
+     * the results of the mens 32
+     */
+    Match[] thirt;
+    /**
+     * the results of the mens 16
+     */
+    Match[] sixteen;
+    /**
+     * the results of the mens quarters
+     */
+    Match[] quart;
+    /**
+     * the results of the mens semis
+     */
+    Match[] semi;
     
     //Womens'
+    /**
+     * the results of the womens finals
+     */
     Match[] wfinals = new Match[1];
+    /**
+     * the results of the womens 128
+     */
     Match[] whunna = new Match[64];
-    Match[] wsixts; //64
-    Match[] wthirt; //32
-    Match[] wsixteen; //16
-    Match[] wquart; //quarters
-    Match[] wsemi; //semis
+    /**
+     * the results of the womens 64
+     */
+    Match[] wsixts;
+    /**
+     * the results of the womens 32
+     */
+    Match[] wthirt;
+    /**
+     * the results of the womens 16
+     */
+    Match[] wsixteen;
+    /**
+     * the results of the womens quarters
+     */
+    Match[] wquart;
+    /**
+     * the results of the womens semis
+     */
+    Match[] wsemi;
     
     //Statistics
+    /**
+     * the total spectators
+     */
     int totalSpec;
+    /**
+     * the total matches
+     */
     int totalMatches;
+    /**
+     * the total balls used
+     */
     int totalBalls = ThreadLocalRandom.current().nextInt(68000, 72000);
+    /**
+     * the total hats sold
+     */
     int totalHats = ThreadLocalRandom.current().nextInt(20000, 45000);
+    /**
+     * the total drinks sold
+     */
     int totalBottles = ThreadLocalRandom.current().nextInt(100000, 200000);
     
     /**

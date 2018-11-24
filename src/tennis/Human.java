@@ -8,20 +8,53 @@ package tennis;
 /**
  * This is a parent class which makes a human (To be used in making a player,
  * referee, etc.).
- * @author Javier Sarmiento & Rafael Racela
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Human {
-    
+    /**
+     * The human's last name if he is a male, maiden name if she
+     * is a female
+     */
     String blastName;
+    /**
+     * The human's gender
+     */
     String gender;
+    /**
+     * The human's last name if she is a female
+     */
     String currentName;
+    /**
+     * The human's first name
+     */
     String firstName;
+    /**
+     * The human's nickname
+     */
     String nickName;
+    /**
+     * The human's date of birth
+     */
     String birthDate;
+    /**
+     * The human's place of birth
+     */
     String birthPlace;
+    /**
+     * The human's date of death
+     */
     String deathDate;
+    /**
+     * The human's nationality
+     */
     String nation;
+    /**
+     * The human's height
+     */
     double height;
+    /**
+     * The human's weight
+     */
     double weight;
     
     /**

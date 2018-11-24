@@ -13,12 +13,29 @@ import java.util.Scanner;
  * @author Javier Sarmiento and Rafael Racela
  */
 public class Operations {
+    /**
+     * the year of the program
+     */
     int year = 2018;
+    /**
+     * the male players
+     */
     Player[] males;
+    /**
+     * the female players
+     */
     Player[] females;
+    /**
+     * the referees
+     */
     Referee[] refs;
-    Spectator[] specs;
+    /**
+     * the tournaments for the year
+     */
     ArrayList<Tournament> currentTournaments = new ArrayList<Tournament>();
+    /**
+     * the finished tournaments
+     */
     ArrayList<Tournament> pastTournaments = new ArrayList<Tournament>();
     Scanner input = new Scanner(System.in);
     
@@ -83,7 +100,6 @@ public class Operations {
      * necessary info. It also acts as the menu for the tournament, leaving the
      * user to choose between playing or viewing the results of the tournament.
      */
-    
     private void currTournament() {
         //Select the tournament
         Tournament t = null;
@@ -143,11 +159,10 @@ public class Operations {
      * Shows all the completed tournaments so far in the program. The user
      * can then opt to view more details about a particular tournament.
      */
-    
     private void viewPastTournaments() {
         System.out.println("");
         for (int i = 0; i < pastTournaments.size(); i++) {
-            System.out.printf("%s - %s %s\n", i+1, year, 
+            System.out.printf("%s - %s %s\n", i+1, pastTournaments.get(i).tourYear, 
             pastTournaments.get(i).name);
         }
         System.out.println("Input tournament number to view details");

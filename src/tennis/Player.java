@@ -8,18 +8,48 @@ import java.util.ArrayList;
 /**
  * This class is a daughter class of the <code>Human</code> class. It also 
  * contains player information and statistics.
- * @author Javier Sarmiento & Rafael Racela
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Player extends Human {
+    /**
+     * The player's dominant hand
+     */
     String hand;
+    /**
+     * The player's sponsor (brand)
+     */
     String sponsor;
+    /**
+     * The player's rank
+     */
     int ranking;
+    /**
+     * The player's coach
+     */
     String coach;
+    /**
+     * The amount of wins that the player has had
+     */
     int wins = 0;
+    /**
+     * The amount of losses that the player has had
+     */
     int losses = 0;
+    /**
+     * The amount of tournaments that the player has joined
+     */
     int tournaments;
+    /**
+     * The amount of prize money the player has won
+     */
     int prizeMoney;
+    /**
+     * ArrayList of the speeds of the player's first serves
+     */
     ArrayList<Integer> firstServices = new ArrayList<Integer>();
+    /**
+     * ArrayList of the speeds of the player's second serves
+     */
     ArrayList<Integer> secondServices = new ArrayList<Integer>();
     
     /**
@@ -113,11 +143,17 @@ public class Player extends Human {
      */
     public int getAverageFirstServe() {
         int all = 0;
-        for (int i = 0; i < firstServices.size(); i++) {
-            all += firstServices.get(i);
+        if (firstServices.isEmpty()) {
+            
         }
-        
-        return all/firstServices.size();
+        else {
+            for (int i = 0; i < firstServices.size(); i++) {
+                all += firstServices.get(i);
+            }
+            all = all / firstServices.size();
+        }
+
+        return all;
     }
     
     /**
@@ -126,11 +162,18 @@ public class Player extends Human {
      */
     public int getAverageSecondServe() {
         int all = 0;
-        for (int i = 0; i < secondServices.size(); i++) {
-            all += secondServices.get(i);
+        if (secondServices.isEmpty()) {
+            
+        }
+        
+        else {
+            for (int i = 0; i < secondServices.size(); i++) {
+                all += secondServices.get(i);
+            }
+            all = all/secondServices.size();
         }
 
-        return all / secondServices.size();
+        return all;
     }
     
     //Setters

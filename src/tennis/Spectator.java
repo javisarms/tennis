@@ -8,12 +8,24 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * This class is a daughter class of the <code>Human</code> class a spectator.
  * It includes additional information like seat number, item, and color of item.
- * @author javiersarmiento
+ * @author Javier Sarmiento and Rafael Racela
  */
 public class Spectator extends Human {
+    /**
+     * The seat in the arena where the spectator is sitting
+     */
     String seat;
+    /**
+     * The spectator's item: shirt if male, glasses if female
+     */
     String item;
+    /**
+     * The color of the spectator's item
+     */
     String color;
+    /**
+     * The name of the the spectator
+     */
     String ident;
 
     /**
